@@ -1,0 +1,14 @@
+[
+  {
+    "name": "main",
+    "create": "false",
+    "list": ["home", "popular", "explore", "all"],
+    "extension": "svg"
+  },
+  {
+    "name": "communities",
+    "create": "true",
+    "list": ["dryEyes", "eink", "electricians", "indianEnts", "peptides"],
+    "extension": "jpeg"
+  }
+]
