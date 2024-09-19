@@ -11,4 +11,5 @@ export const ItemCreationContext = createContext({
   backPage: () => {},
   submitPage: () => {},
   communityData: {},
+  formSubmitted: Boolean,
 });

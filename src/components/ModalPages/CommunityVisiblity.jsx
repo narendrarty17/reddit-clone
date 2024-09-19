@@ -2,7 +2,6 @@ import Mature from "../../assets/imgs/Modal/mature.svg";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { useContext, useState } from "react";
-import useForm from "../../hooks/useForm";
 import { ItemCreationContext } from "../../context/ItemCreationContext";
 
 const title = "What kind of community is this?";
@@ -41,7 +40,7 @@ export default function CommunityVisibility() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handle submit inside CommunityVisibility");
-    addCommunityData({ visibility, isMature: isMature });
+    addCommunityData({ visibility, isMature });
     submitPage();
   };
 

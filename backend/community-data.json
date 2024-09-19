@@ -78,5 +78,75 @@
     "name": "fgdfg",
     "description": "fgfdg",
     "date": "2024-09-16T16:20:52.341Z"
+  },
+  {
+    "name": "gfdg",
+    "description": "gfdg",
+    "bannerImage": "blob:http://localhost:3000/57fce202-bb00-43dd-9c8d-cd5c95a5c50a",
+    "iconImage": "blob:http://localhost:3000/c3e96eeb-f3c2-419b-9395-0ca2e8fffc65",
+    "selectedTopics": [
+      "Cosplay",
+      "Anime & Manga",
+      "Architecture"
+    ],
+    "isMature": true,
+    "visibility": "public",
+    "date": "2024-09-19T16:12:26.956Z"
+  },
+  {
+    "name": "hgf",
+    "description": "ghgf",
+    "bannerImage": "blob:http://localhost:3000/1177cfc9-37d4-46dd-81d9-afd33614f9f0",
+    "iconImage": "blob:http://localhost:3000/7229b144-3f79-4e58-b78a-2b3923b19559",
+    "selectedTopics": [
+      "Cosplay",
+      "Anime & Manga",
+      "Performing Arts"
+    ],
+    "isMature": true,
+    "visibility": "public",
+    "date": "2024-09-19T16:12:58.426Z"
+  },
+  {
+    "name": "test 1",
+    "description": "test 1 description",
+    "bannerImage": "blob:http://localhost:3000/9da06542-1d77-4171-90e0-024cdb57be7d",
+    "iconImage": "blob:http://localhost:3000/3c00afcf-2582-4ccb-b8ad-07125673a978",
+    "selectedTopics": [
+      "Cosplay",
+      "Anime & Manga",
+      "Architecture"
+    ],
+    "isMature": true,
+    "visibility": "public",
+    "date": "2024-09-19T16:20:03.300Z"
+  },
+  {
+    "name": "test 2",
+    "description": "test 2 description",
+    "bannerImage": "blob:http://localhost:3000/dbb00858-17cd-48fe-be30-706544f7b038",
+    "iconImage": "blob:http://localhost:3000/2c95561b-839d-4444-aeed-bcb455060692",
+    "selectedTopics": [
+      "Cosplay",
+      "Anime & Manga",
+      "Architecture"
+    ],
+    "isMature": false,
+    "visibility": "public",
+    "date": "2024-09-19T16:21:52.993Z"
+  },
+  {
+    "name": "f",
+    "description": "d",
+    "bannerImage": "blob:http://localhost:3000/f76becdd-484b-4534-959a-5836d0f3a9e3",
+    "iconImage": "blob:http://localhost:3000/5ffbfdb5-2532-4648-aa98-a75b36ac35df",
+    "selectedTopics": [
+      "Cosplay",
+      "Anime & Manga",
+      "Performing Arts"
+    ],
+    "isMature": false,
+    "visibility": "restricted",
+    "date": "2024-09-19T16:22:47.026Z"
   }
 ]

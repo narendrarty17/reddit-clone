@@ -39,41 +39,9 @@ export default function NavSection({ items }) {
     }
   };
 
-  const handleModalSubmit = async (name, description) => {
-    // Handle modal submit code here
-    try {
-      const response = await fetch("http://localhost:5000/community", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, description }),
-      });
-
-      if (response.ok) {
-        alert("Community data saved!");
-      } else {
-        // Extract error message from the response
-        const errorData = await response.json();
-        const errorMessage =
-          errorData.message || "Failed to save community data";
-        alert(errorMessage);
-      }
-    } catch (error) {
-      // Handle network or other errors
-      alert("An error occurred while saving community data.");
-    }
-
-    if (dialog.current) {
-      dialog.current.close();
-    }
-  };
-
   return (
     <>
-      {createBtnPresent && (
-        <ItemCreationModal ref={dialog} onReset={handleModalSubmit} />
-      )}
+      {createBtnPresent && <ItemCreationModal ref={dialog} />}
       <section className="flex flex-col gap-1 border-b-[1px] border-midGray py-4">
         {collapsable && (
           <span className="flex justify-between items-center gap-6 px-4 py-2 ">

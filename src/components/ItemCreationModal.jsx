@@ -6,19 +6,17 @@ import {
   useState,
   lazy,
   useEffect,
+  useCallback,
 } from "react";
 import { createPortal } from "react-dom";
 import { ItemCreationContext } from "../context/ItemCreationContext";
-import useForm from "../hooks/useForm";
 import trackingDots from "./ModalPages/modalUtils/TrackingDots";
-import FinalSummary from "./ModalPages/FinalSummary";
 
 const modalPages = [
   "CommunityInfo",
   "SetBannerIcon",
   "CommunityCategory",
   "CommunityVisibility",
-  "FinalSummary",
 ];
 
 const modalComponents = {
@@ -26,22 +24,21 @@ const modalComponents = {
   SetBannerIcon: lazy(() => import("./ModalPages/SetBannerIcon")),
   CommunityCategory: lazy(() => import("./ModalPages/CommunityCategory")),
   CommunityVisibility: lazy(() => import("./ModalPages/CommunityVisiblity")),
-  FinalSummary: lazy(() => import("./ModalPages/FinalSummary")),
 };
 
 export default forwardRef(function ItemCreationModal({ onReset }, ref) {
   const dialog = useRef();
   const [currentPage, setCurrentPage] = useState("CommunityInfo");
-  const [submitData, setSubmitData] = useState(false);
-  const {
-    name,
-    desc,
-    updateCommunityName,
-    updateCommunityDesc,
-    addCommunityData,
-    resetCommunityData,
-    communityData,
-  } = useForm();
+  const [communityData, setCommunityData] = useState({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
+
+  const addCommunityData = (data) => {
+    setCommunityData((prevState) => ({ ...prevState, ...data }));
+  };
+  const resetCommunityData = () => {
+    setCommunityData({});
+  };
 
   useImperativeHandle(ref, () => {
     return {
@@ -53,23 +50,27 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
     };
   });
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     console.log("Handle cancel...");
     if (dialog.current) {
       dialog.current.close();
     }
-    updateCommunityName("");
-    updateCommunityDesc("");
     setCurrentPage("CommunityInfo");
-    // resetCommunityData();
-  };
+    resetCommunityData();
+    setFormSubmitted(false);
+    setReadyToSubmit(false);
+  }, []);
 
   const submitPage = () => {
     setCurrentPage((prevPage) => {
       const i = modalPages.indexOf(prevPage) + 1;
 
+      if (i === modalPages.length) {
+        setReadyToSubmit(true);
+        return prevPage; // No more pages, stay on the current one
+      }
+
       if (i > modalPages.length - 1) {
-        setSubmitData(true); // Show final summary or handle submission
         return prevPage; // No more pages, stay on the current one
       }
 
@@ -77,14 +78,46 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
     });
   };
 
-  useEffect(() => {
-    console.log("Current page inside useEffect: ", currentPage);
-    console.log("inside submit page community data collected: ", communityData);
-  }, [currentPage]);
-
   const backPage = () => {
     if (modalPages.indexOf(currentPage) > 0) {
       setCurrentPage(modalPages[modalPages.indexOf(currentPage) - 1]);
+    }
+  };
+
+  const handleModalSubmit = async (data) => {
+    console.log(
+      "Inside handleModalSubmit before submitting community data: ",
+      data
+    );
+    // Handle modal submit code here
+    try {
+      const response = await fetch("http://localhost:5000/community", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Community data saved!");
+        setFormSubmitted(true);
+      } else {
+        // Extract error message from the response
+        const errorData = await response.json();
+        const errorMessage =
+          errorData.message || "Failed to save community data";
+        alert(errorMessage);
+        setFormSubmitted(false);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      alert("An error occurred while saving community data.");
+      setFormSubmitted(false);
+    }
+
+    if (dialog.current) {
+      dialog.current.close();
     }
   };
 
@@ -96,18 +129,23 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
   // Dynamically select the component based on currentPage
   const CurrentPageComponent = modalComponents[currentPage];
 
+  useEffect(() => {
+    console.log("Current page: ", currentPage);
+    console.log("Current community data stored: ", communityData);
+    if (readyToSubmit) {
+      handleModalSubmit(communityData);
+    }
+  }, [readyToSubmit, communityData, currentPage, handleCancel]);
+
   return createPortal(
     <ItemCreationContext.Provider
       value={{
         handleCancel,
         addCommunityData,
         submitPage,
-        updateCommunityName,
-        updateCommunityDesc,
         backPage,
-        name,
-        desc,
         communityData,
+        formSubmitted,
       }}
     >
       <dialog
@@ -124,7 +162,6 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
         </Suspense>
         <div className="flex gap-4">
           <section className="mt-4 hidden md:flex gap-1">{tracker}</section>
-          <p className="text-white">{currentPage}</p>
         </div>
       </dialog>
     </ItemCreationContext.Provider>,

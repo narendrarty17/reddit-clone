@@ -15,20 +15,25 @@ app.use(bodyParser.json());
 
 // Route to receive community data
 app.post('/community', (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, bannerImage, iconImage, selectedTopics, isMature, visibility } = req.body;
 
     // Simple validation
-    if (!name || !description) {
-        return res.status(400).json({ message: 'Name and description are required' });
+    if (!name || !description || !bannerImage || !iconImage || !selectedTopics || visibility === undefined) {
+        return res.status(400).json({ message: 'All fields are required' });
     }
 
     const communityData = {
         name,
         description,
+        bannerImage,
+        iconImage,
+        selectedTopics,
+        isMature: isMature || false,  // Default to false if not provided
+        visibility,
         date: new Date().toISOString(),
     };
 
-    // Write the community data to a local file (community-data.json)
+    // Path to the community data file
     const filePath = path.join(__dirname, 'community-data.json');
 
     try {
@@ -37,11 +42,7 @@ app.post('/community', (req, res) => {
         let communities = data ? JSON.parse(data) : [];
 
         // Check if community name already exists
-        const nameExists = communities.some(community => community.name === name.trim);
-
-        console.log("communities: ", communities);
-        console.log("name:", name);
-        console.log("nameExists: ", nameExists);
+        const nameExists = communities.some(community => community.name.trim().toLowerCase() === name.trim().toLowerCase());
 
         if (nameExists) {
             return res.status(400).json({ message: 'Community name already exists' });

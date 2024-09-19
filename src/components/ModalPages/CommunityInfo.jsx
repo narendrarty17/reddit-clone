@@ -1,36 +1,21 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useContext } from "react";
 import { ItemCreationContext } from "../../context/ItemCreationContext";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import CommunityDetail from "./modalUtils/CommunityDetail";
 import ModalButtons from "./modalUtils/ModalButtons";
 
+const title = "Tell us about your community";
+const description =
+  "A name and description help people understand what your community is all about";
+
 export default function CommunityInfo() {
-  const communityName = useRef();
-  const communityDesc = useRef();
-
   const [error, setError] = useState();
+  const { communityData } = useContext(ItemCreationContext);
+  const [name, setName] = useState(communityData.name || "");
+  const [desc, setDesc] = useState(communityData.description || "");
 
-  const title = "Tell us about your community";
-  const description =
-    "A name and description help people understand what your community is all about";
-
-  const {
-    name,
-    desc,
-    updateCommunityName,
-    updateCommunityDesc,
-    submitPage,
-    handleCancel,
-    addCommunityData,
-  } = useContext(ItemCreationContext);
-
-  const handleChangeName = (e) => {
-    updateCommunityName(e.target.value);
-  };
-
-  const handleChangeDesc = (e) => {
-    updateCommunityDesc(e.target.value);
-  };
+  const { submitPage, handleCancel, addCommunityData } =
+    useContext(ItemCreationContext);
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -38,8 +23,6 @@ export default function CommunityInfo() {
     if (formValid) {
       //   onReset(communityName.current.value, communityDesc.current.value);
       addCommunityData({ name: name, description: desc });
-      communityName.current.value = "";
-      communityDesc.current.value = "";
       submitPage();
     } else {
       setError("Both fields should be filled");
@@ -57,15 +40,15 @@ export default function CommunityInfo() {
         <section className="flex flex-col md:flex-row gap-6 md:gap-8">
           <div className="flex flex-col gap-4 md:gap-8 w-auto md:w-96 order-2 md:order-1 text-white">
             <input
-              ref={communityName}
-              onChange={handleChangeName}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="rounded-2xl h-14 p-4 outline-none bg-darkMidGray hover:bg-midGray"
               type="text"
               placeholder="Community name*"
             />
             <textarea
-              ref={communityDesc}
-              onChange={handleChangeDesc}
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
               className="rounded-2xl h-40 p-4 md:w-auto outline-none bg-darkMidGray hover:bg-midGray"
               placeholder="Descripton*"
             />
