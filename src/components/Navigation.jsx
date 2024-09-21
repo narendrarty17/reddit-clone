@@ -7,7 +7,7 @@ const navSections = data.map((item) => (
 
 export default function Navigation() {
   return (
-    <nav className="hidden lg:flex flex-col w-[280px] border-r-[1px] border-midGray pl-3 pr-3">
+    <nav className="hidden lg:flex flex-col w-[300px] border-r-[1px] border-midGray pl-3 pr-3">
       {navSections}
     </nav>
   );
