@@ -1,21 +1,26 @@
-import defaultLogo from "../../../assets/imgs/Modal/defaultLogo.svg";
+import defaultLogo from "../../../assets/imgs/Modal/defaultLogo.jpg";
 import defaultBanner from "../../../assets/imgs/Modal/defaultBanner.png";
 
-export default function CommunityDetail({ name, description, banner, logo }) {
+export default function CommunityDetail({
+  name,
+  description,
+  banner = null,
+  logo = null,
+}) {
   return (
     <div className="flex flex-col gap-4 order-1 md:order-2 w-64 h-48 pb-4 shadow-dark-custom rounded-2xl">
       {/* banner */}
       <img
-        className="rounded-t-2xl"
-        src={defaultBanner}
+        className="w-full h-8 rounded-t-2xl"
+        src={banner || defaultBanner}
         alt="community banner"
       />
 
       {/* rest of the card */}
       <div className="flex gap-3 px-4 items-center">
         <img
-          className="h-9 rounded-full"
-          src={defaultLogo}
+          className="w-10 h-10 rounded-full"
+          src={logo || defaultLogo}
           alt="default community logo"
         />
         <div className="flex flex-col">

@@ -32,8 +32,6 @@ yarn-error.log*
 /node_modules
 
 /backend/node_modules
-/backend/uploads
-/backend/community-data.json
 
 /.pnp
 .pnp.js

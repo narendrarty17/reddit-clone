@@ -130,7 +130,12 @@ export default function SetBannerIcon() {
             />
           </div>
         </section>
-        <CommunityDetail name={name} description={desc} />
+        <CommunityDetail
+          name={name}
+          description={desc}
+          banner={bannerImageUrl}
+          logo={iconImageUrl}
+        />
       </div>
       <ModalButtons
         next={handleNext}

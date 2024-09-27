@@ -13,6 +13,16 @@ export default function CommunityInfo() {
   const { communityData } = useContext(ItemCreationContext);
   const [name, setName] = useState(communityData.name || "");
   const [desc, setDesc] = useState(communityData.description || "");
+  const [iconImageUrl, setIconImageUrl] = useState(
+    communityData.bannerImage
+      ? URL.createObjectURL(communityData.iconImage)
+      : null
+  );
+  const [bannerImageUrl, setBannerImageUrl] = useState(
+    communityData.bannerImage
+      ? URL.createObjectURL(communityData.bannerImage)
+      : null
+  );
 
   const { submitPage, handleCancel, addCommunityData } =
     useContext(ItemCreationContext);
@@ -53,7 +63,12 @@ export default function CommunityInfo() {
               placeholder="Descripton*"
             />
           </div>
-          <CommunityDetail name={name} description={desc} />
+          <CommunityDetail
+            name={name}
+            description={desc}
+            banner={bannerImageUrl}
+            logo={iconImageUrl}
+          />
         </section>
         <ModalButtons
           next={handleNext}
