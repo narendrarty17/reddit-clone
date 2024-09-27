@@ -38,12 +38,12 @@ const topicsData = [
 ];
 
 export default function CommunityCategory() {
-  const [selectedTopics, setSelectedTopics] = useState([]);
-  const { backPage, submitPage, addCommunityData } =
+  const { communityData, backPage, submitPage, addCommunityData } =
     useContext(ItemCreationContext);
+  const [topics, setTopics] = useState(communityData.selectedTopics ?? []);
 
   const handleTopicItemSelection = (item) => {
-    setSelectedTopics((prevState) => {
+    setTopics((prevState) => {
       if (prevState.includes(item)) {
         // Remove item if already selected
         return prevState.filter((topic) => topic !== item);
@@ -67,7 +67,7 @@ export default function CommunityCategory() {
           <li
             key={item}
             className={`px-3 py-2 rounded-3xl cursor-pointer ${
-              selectedTopics.includes(item) ? "bg-gray-500" : "bg-darkMidGray"
+              topics.includes(item) ? "bg-gray-500" : "bg-darkMidGray"
             } hover:bg-midGray`}
             onClick={() => handleTopicItemSelection(item)} // Handle click here
           >
@@ -80,7 +80,7 @@ export default function CommunityCategory() {
 
   const handleNext = (e) => {
     e.preventDefault();
-    addCommunityData({ selectedTopics });
+    addCommunityData({ selectedTopics: topics });
     submitPage();
   };
 
@@ -90,7 +90,7 @@ export default function CommunityCategory() {
       <section className="mt-8 flex flex-col gap-2">
         <SearchBar placeholder={searchPlaceholder} />
         <span className="font-bold text-white text-xl">
-          Topics {selectedTopics.length}/3
+          Topics {topics.length}/3
         </span>
       </section>
 
@@ -101,7 +101,7 @@ export default function CommunityCategory() {
       <ModalButtons
         next={handleNext}
         back={backPage}
-        isNextActive={selectedTopics.length === 3}
+        isNextActive={topics.length === 3}
         btnNames={["Back", "Next"]}
       />
     </ModalTopSection>

@@ -13,8 +13,20 @@ const description =
 export default function SetBannerIcon() {
   const { communityData, submitPage, addCommunityData, backPage } =
     useContext(ItemCreationContext);
-  const [bannerImage, setBannerImage] = useState(null);
-  const [iconImage, setIconImage] = useState(null);
+  const [bannerImage, setBannerImage] = useState(
+    communityData.bannerImage ?? null
+  );
+  const [bannerImageUrl, setBannerImageUrl] = useState(
+    communityData.bannerImage
+      ? URL.createObjectURL(communityData.bannerImage)
+      : null
+  );
+  const [iconImage, setIconImage] = useState(communityData.iconImage ?? null);
+  const [iconImageUrl, setIconImageUrl] = useState(
+    communityData.bannerImage
+      ? URL.createObjectURL(communityData.iconImage)
+      : null
+  );
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -23,12 +35,13 @@ export default function SetBannerIcon() {
     setDesc(communityData.description);
   }, [communityData]);
 
-  const handleFileChange = (event, setter) => {
+  const handleFileChange = (event, setter, setterUrl) => {
     const file = event.target.files[0];
     if (file) {
       // For demonstration purposes, storing the file object itself
       // In a real application, you might want to upload it or process it further
-      setter(URL.createObjectURL(file));
+      setter(file);
+      setterUrl(URL.createObjectURL(file));
     }
   };
 
@@ -39,8 +52,9 @@ export default function SetBannerIcon() {
     submitPage();
   };
 
-  const deleteImgs = (setter) => {
+  const deleteImgs = (setter, setterUrl) => {
     setter(null);
+    setterUrl(null);
   };
 
   const imgsUploaded = bannerImage && iconImage;
@@ -51,14 +65,16 @@ export default function SetBannerIcon() {
         <section className="flex flex-col gap-4 order-2 md:order-1 w-[90%] md:w-[50%] text-white pl-4">
           <div className="flex justify-between  items-center">
             <p className="w-12">Banner</p>
-            {bannerImage && (
+            {bannerImageUrl && (
               <div className="flex gap-2 items-center">
                 <img
-                  src={bannerImage}
+                  src={bannerImageUrl}
                   alt="Banner preview"
                   className="w-10 h-10 object-cover"
                 />
-                <button onClick={() => deleteImgs(setBannerImage)}>
+                <button
+                  onClick={() => deleteImgs(setBannerImage, setBannerImageUrl)}
+                >
                   <img src={deleteIcon} alt="delete icon" className="h-5" />
                 </button>
               </div>
@@ -75,19 +91,23 @@ export default function SetBannerIcon() {
               type="file"
               accept="image/"
               style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, setBannerImage)}
+              onChange={(e) =>
+                handleFileChange(e, setBannerImage, setBannerImageUrl)
+              }
             />
           </div>
           <div className="flex justify-between items-center">
             <p className="w-12">Icon</p>
-            {iconImage && (
+            {iconImageUrl && (
               <div className="flex gap-2 items-center">
                 <img
-                  src={iconImage}
+                  src={iconImageUrl}
                   alt="Icon preview"
                   className="w-10 h-10 object-cover"
                 />
-                <button onClick={() => deleteImgs(setIconImage)}>
+                <button
+                  onClick={() => deleteImgs(setIconImage, setIconImageUrl)}
+                >
                   <img src={deleteIcon} alt="delete icon" className="h-5" />
                 </button>
               </div>
@@ -104,7 +124,9 @@ export default function SetBannerIcon() {
               type="file"
               accept="image/"
               style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, setIconImage)}
+              onChange={(e) =>
+                handleFileChange(e, setIconImage, setIconImageUrl)
+              }
             />
           </div>
         </section>

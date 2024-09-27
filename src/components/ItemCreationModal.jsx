@@ -11,26 +11,19 @@ import {
 import { createPortal } from "react-dom";
 import { ItemCreationContext } from "../context/ItemCreationContext";
 import trackingDots from "./ModalPages/modalUtils/TrackingDots";
+import modalPagesData from "../assets/data/itemCreationModal.json";
 
-const modalPages = [
-  "CommunityInfo",
-  "SetBannerIcon",
-  "CommunityCategory",
-  "CommunityVisibility",
-];
+const modalPages = modalPagesData.modalPages;
 
-const modalComponents = {
-  CommunityInfo: lazy(() => import("./ModalPages/CommunityInfo")),
-  SetBannerIcon: lazy(() => import("./ModalPages/SetBannerIcon")),
-  CommunityCategory: lazy(() => import("./ModalPages/CommunityCategory")),
-  CommunityVisibility: lazy(() => import("./ModalPages/CommunityVisiblity")),
-};
+const modalComponents = modalPages.reduce((components, page) => {
+  components[page] = lazy(() => import(`./ModalPages/${page}`));
+  return components;
+}, {});
 
 export default forwardRef(function ItemCreationModal({ onReset }, ref) {
   const dialog = useRef();
   const [currentPage, setCurrentPage] = useState("CommunityInfo");
   const [communityData, setCommunityData] = useState({});
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
 
   const addCommunityData = (data) => {
@@ -57,7 +50,6 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
     }
     setCurrentPage("CommunityInfo");
     resetCommunityData();
-    setFormSubmitted(false);
     setReadyToSubmit(false);
   }, []);
 
@@ -84,13 +76,45 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
     }
   };
 
+  const uploadImage = async (imageName, image, uploadUrl) => {
+    const formData = new FormData();
+    formData.append(imageName, image);
+
+    const response = await fetch(uploadUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Image upload failed");
+    }
+
+    const result = await response.json();
+    return result.path; // Assuming server responds with {path: 'url_to_image'}
+  };
+
   const handleModalSubmit = async (data) => {
     console.log(
       "Inside handleModalSubmit before submitting community data: ",
       data
     );
-    // Handle modal submit code here
     try {
+      const bannerPath = await uploadImage(
+        "bannerImage",
+        data.bannerImage,
+        "http://localhost:5000/upload/banner"
+      );
+      const iconPath = await uploadImage(
+        "iconImage",
+        data.iconImage,
+        "http://localhost:5000/upload/icon"
+      );
+
+      data.bannerImage = bannerPath;
+      data.iconImage = iconPath;
+
+      // Handle modal submit code here
+
       const response = await fetch("http://localhost:5000/community", {
         method: "POST",
         headers: {
@@ -101,23 +125,16 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
 
       if (response.ok) {
         alert("Community data saved!");
-        setFormSubmitted(true);
       } else {
         // Extract error message from the response
         const errorData = await response.json();
         const errorMessage =
           errorData.message || "Failed to save community data";
         alert(errorMessage);
-        setFormSubmitted(false);
       }
     } catch (error) {
       // Handle network or other errors
       alert("An error occurred while saving community data.");
-      setFormSubmitted(false);
-    }
-
-    if (dialog.current) {
-      dialog.current.close();
     }
   };
 
@@ -134,6 +151,7 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
     console.log("Current community data stored: ", communityData);
     if (readyToSubmit) {
       handleModalSubmit(communityData);
+      handleCancel();
     }
   }, [readyToSubmit, communityData, currentPage, handleCancel]);
 
@@ -145,7 +163,6 @@ export default forwardRef(function ItemCreationModal({ onReset }, ref) {
         submitPage,
         backPage,
         communityData,
-        formSubmitted,
       }}
     >
       <dialog

@@ -1,0 +1,8 @@
+{
+  "modalPages": [
+    "CommunityInfo",
+    "SetBannerIcon",
+    "CommunityCategory",
+    "CommunityVisibility"
+  ]
+}

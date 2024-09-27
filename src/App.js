@@ -8,7 +8,7 @@ function App() {
       <Header />
       <div className='flex w-[100%]'>
         <Navigation />
-        <CommunityHome />
+        <CommunityHome name="DryEye" />
       </div>
     </>
   );
