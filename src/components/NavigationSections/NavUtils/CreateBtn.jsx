@@ -1,4 +1,4 @@
-import { create } from "../../svgComponents/GlobalSvgs";
+import { Create } from "../../svgComponents/GloalSvgs";
 
 export default function CreateBtn({ createItem, onClick }) {
   return (
@@ -8,11 +8,7 @@ export default function CreateBtn({ createItem, onClick }) {
       onClick={onClick}
     >
       <div className="flex items-center gap-4 w-auto">
-        <img
-          className="h-7 rounded-full"
-          src={create}
-          alt={`create a ${createItem}`}
-        />
+        <Create />
         {/* <span>{iconName.charAt(0).toUpperCase() + iconName.slice(1)}</span> */}
         <span>
           Create a {createItem === "community" ? "community" : "feed"}

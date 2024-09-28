@@ -1,11 +1,11 @@
-import redditLogo from "../../assets/imgs/Header/01_reddit_logo.svg";
-import chatIcon from "../../assets/imgs/Header/03_chat_icon.svg";
-import createIcon from "../../assets/imgs/create.svg";
-import notificationIcon from "../../assets/imgs/Header/05_notification.svg";
+import redditLogo from "../../assets/imgs/Header/reddit.svg";
+import { ChatIcon } from "../svgComponents/HeaderSvgs";
+import { Notification } from "../svgComponents/HeaderSvgs";
+
+import { Create } from "../svgComponents/GloalSvgs";
+
 import avatar from "../../assets/imgs/Header/06_avatar.png";
 import SearchBar from "./SearchBar";
-
-const iconStyle = "h-6 hover:bg-midGray px-2 py-2 box-content rounded-full";
 
 export default function Header() {
   return (
@@ -28,12 +28,12 @@ export default function Header() {
 
       {/* Right section */}
       <div className="hidden md:flex gap-1 items-center">
-        <img className={iconStyle} src={chatIcon} alt="chat icon" />
+        <ChatIcon />
         <button className="flex gap-2 text-lightGray font-semibold hover:bg-midGray px-3 py-2 rounded-3xl">
-          <img className="h-6" src={createIcon} alt="chat icon" />
+          <Create />
           <span>Create</span>
         </button>
-        <img className={iconStyle} src={notificationIcon} alt="create icon" />
+        <Notification />
         <img
           className="w-8 h-8 hover:bg-midGray px-2 py-2 box-content rounded-full"
           src={avatar}

@@ -20,7 +20,7 @@ const modalComponents = modalPages.reduce((components, page) => {
   return components;
 }, {});
 
-export default forwardRef(function ItemCreationModal({ onReset }, ref) {
+export default forwardRef(function CommunityCreationModal({ onReset }, ref) {
   const dialog = useRef();
   const [currentPage, setCurrentPage] = useState("CommunityInfo");
   const [communityData, setCommunityData] = useState({});
