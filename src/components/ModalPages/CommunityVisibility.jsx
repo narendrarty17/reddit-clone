@@ -1,23 +1,34 @@
-import Mature from "../../assets/imgs/Modal/mature.svg";
+import {
+  Public,
+  Restricted,
+  Private,
+  Mature,
+} from "../svgComponents/CommunityCreationSvgs";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { useContext, useEffect, useState } from "react";
 import { CommunityCreationContext } from "../../context/CommunityCreationContext";
+
+const componentMap = {
+  Public: Public,
+  Restricted: Restricted,
+  Private: Private,
+};
 
 const title = "What kind of community is this?";
 const description =
   "Decide who can view and contribute in your community. Only public communities show up in search";
 const categories = [
   {
-    type: "public",
+    type: "Public",
     description: "Anyone can view and contribute",
   },
   {
-    type: "restricted",
+    type: "Restricted",
     description: "Anyone can view, but only approved users can contribute",
   },
   {
-    type: "private",
+    type: "Private",
     description: "Only approved users can view and contribute",
   },
 ];
@@ -28,7 +39,7 @@ export default function CommunityVisibility() {
   );
 
   const [visibility, setVisibility] = useState(
-    communityData.visibility ?? "public"
+    communityData.visibility ?? "Public"
   );
   const [isMature, setIsMature] = useState(communityData.isMature ?? false);
 
@@ -52,8 +63,8 @@ export default function CommunityVisibility() {
   };
 
   const categoryList = categories.map((category) => {
-    const icon = require(`../../assets/imgs/Modal/${category.type}.svg`);
-    const name = category.type.charAt(0).toUpperCase() + category.type.slice(1);
+    const Icon = componentMap[category.type];
+    const name = category.type;
     const description = category.description;
 
     return (
@@ -65,7 +76,7 @@ export default function CommunityVisibility() {
         onClick={() => handleCategorySelection(category.type)}
       >
         <div className="flex gap-4 items-center">
-          <img className="h-7" src={icon} alt={name} />
+          <Icon />
           <div className="flex flex-col items-start">
             <span className="text-white text-md">{name}</span>
             <p className="text-lightGray text-sm">{description}</p>
@@ -90,7 +101,7 @@ export default function CommunityVisibility() {
         onClick={handleMatureSelection}
       >
         <div className="flex gap-4 items-center">
-          <img className="h-7" src={Mature} alt="mature content" />
+          <Mature />
           <div className="flex flex-col items-start">
             <span className="text-white text-md">Mature (18+)</span>
             <p className="text-lightGray text-sm">

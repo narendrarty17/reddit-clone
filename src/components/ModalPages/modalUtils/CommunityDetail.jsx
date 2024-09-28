@@ -1,5 +1,5 @@
-import defaultLogo from "../../../assets/imgs/Modal/defaultLogo.jpg";
-import defaultBanner from "../../../assets/imgs/Modal/defaultBanner.png";
+import defaultLogo from "../../../assets/imgs/Modal/defaultLogo.svg";
+import defaultBanner from "../../../assets/imgs/Modal/defaultBanner.svg";
 
 export default function CommunityDetail({
   name,

@@ -1,34 +1,25 @@
 import { useState, useEffect } from "react";
 
-import bannerImage from "../../assets/imgs/Modal/defaultBanner.png";
-import { CommunityLogo } from "../svgComponents/CommunityHomeSvgs";
+import defaultBanner from "../../assets/imgs/CommunityHome/defaultBanner.svg";
+import defaultLogo from "../../assets/imgs/CommunityHome/defaultLogo.svg";
+
 import { Notification } from "../svgComponents/CommunityHomeSvgs";
 
 export default function CommunityHeader() {
-  const [useWindowSize, setUseWindowSize] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setUseWindowSize(window.innerWidth);
-    };
-
-    // Attach teh event listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div className="w-[100%]">
       <section className="md:pl-4 md:pr-1 md:py-2 w-[100%]">
-        <div className="w-full h-20 md:h-24 md:rounded-lg bg-midGray"></div>
+        <img
+          className="w-full h-20 md:h-24 md:rounded-lg"
+          src={defaultBanner}
+          alt="community banner"
+        />
         <div className="px-3 pt-3 md:px-6 md:pt-0 md:mt-[-40px] flex flex-col items-start gap-4 md:flex-row md:justify-between md:items-end">
           <div className="flex items-start gap-3 md:gap-4">
-            <CommunityLogo
-              windowSize={useWindowSize < 768 ? "sm" : "aboveSm"}
+            <img
+              className="h-12 w-12 md:h-24 md:w-24 rounded-full"
+              src={defaultLogo}
+              alt="community logo"
             />
             <div className="mt-0 md:mt-[50px]  text-white font-bold">
               <h3 className="text-xl md:text-3xl">r/dryEyes</h3>
