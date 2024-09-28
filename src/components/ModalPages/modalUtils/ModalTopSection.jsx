@@ -1,13 +1,13 @@
-import close from "../../../assets/imgs/Modal/close.svg";
+import { Close } from "../../svgComponents/CommunityCreationSvgs";
 import { useContext } from "react";
-import { ItemCreationContext } from "../../../context/ItemCreationContext";
+import { CommunityCreationContext } from "../../../context/CommunityCreationContext";
 
 export default function ModalTopSection({ title, description, children }) {
-  const { handleCancel } = useContext(ItemCreationContext);
+  const { handleCancel } = useContext(CommunityCreationContext);
   return (
     <div className="relative flex flex-col gap-3 md:gap-6">
       <button className="absolute top-0 right-0" onClick={handleCancel}>
-        <img className="h-7" src={close} alt="close" />
+        <Close />
       </button>
       <div>
         <h3 className="text-white text-2xl font-bold">{title}</h3>

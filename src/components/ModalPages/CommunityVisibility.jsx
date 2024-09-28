@@ -2,7 +2,7 @@ import Mature from "../../assets/imgs/Modal/mature.svg";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { useContext, useEffect, useState } from "react";
-import { ItemCreationContext } from "../../context/ItemCreationContext";
+import { CommunityCreationContext } from "../../context/CommunityCreationContext";
 
 const title = "What kind of community is this?";
 const description =
@@ -23,8 +23,9 @@ const categories = [
 ];
 
 export default function CommunityVisibility() {
-  const { communityData, submitPage, backPage, addCommunityData } =
-    useContext(ItemCreationContext);
+  const { communityData, submitPage, backPage, addCommunityData } = useContext(
+    CommunityCreationContext
+  );
 
   const [visibility, setVisibility] = useState(
     communityData.visibility ?? "public"

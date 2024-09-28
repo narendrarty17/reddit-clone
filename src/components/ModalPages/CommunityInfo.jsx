@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { ItemCreationContext } from "../../context/ItemCreationContext";
+import { CommunityCreationContext } from "../../context/CommunityCreationContext";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import CommunityDetail from "./modalUtils/CommunityDetail";
 import ModalButtons from "./modalUtils/ModalButtons";
@@ -9,12 +9,12 @@ const description =
   "A name and description help people understand what your community is all about";
 
 export default function CommunityInfo() {
-  const [error, setError] = useState();
-  const { communityData } = useContext(ItemCreationContext);
+  const [error, setError] = useState(null);
+  const { communityData } = useContext(CommunityCreationContext);
   const [name, setName] = useState(communityData.name || "");
   const [desc, setDesc] = useState(communityData.description || "");
   const [iconImageUrl, setIconImageUrl] = useState(
-    communityData.bannerImage
+    communityData.iconImage
       ? URL.createObjectURL(communityData.iconImage)
       : null
   );
@@ -24,8 +24,9 @@ export default function CommunityInfo() {
       : null
   );
 
-  const { submitPage, handleCancel, addCommunityData } =
-    useContext(ItemCreationContext);
+  const { submitPage, handleCancel, addCommunityData } = useContext(
+    CommunityCreationContext
+  );
 
   const handleNext = (e) => {
     e.preventDefault();

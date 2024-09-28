@@ -58,11 +58,11 @@ export default function NavCommunities() {
   };
 
   if (isLoading) {
-    return <div className="flex justify-center">Loading...</div>;
+    return <div className="flex justify-start p-4">Loading...</div>;
   }
 
   if (errorMessage && !isLoading) {
-    return <div>Can't fetch community list</div>;
+    return <div className="flex justify-start p-4">Can't fetch list</div>;
   }
 
   return (

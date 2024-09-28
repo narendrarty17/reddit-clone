@@ -3,7 +3,7 @@ import imageIcon from "../../assets/imgs/Modal/image.svg";
 import deleteIcon from "../../assets/imgs/Modal/delete.svg";
 import CommunityDetail from "./modalUtils/CommunityDetail";
 import { useContext, useEffect, useState } from "react";
-import { ItemCreationContext } from "../../context/ItemCreationContext";
+import { CommunityCreationContext } from "../../context/CommunityCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
 
 const title = "Style your community";
@@ -11,8 +11,9 @@ const description =
   "Adding visual flair will catch new members attention and help establish your community's culture!<br /> You can update this at any time";
 
 export default function SetBannerIcon() {
-  const { communityData, submitPage, addCommunityData, backPage } =
-    useContext(ItemCreationContext);
+  const { communityData, submitPage, addCommunityData, backPage } = useContext(
+    CommunityCreationContext
+  );
   const [bannerImage, setBannerImage] = useState(
     communityData.bannerImage ?? null
   );
