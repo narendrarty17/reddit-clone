@@ -24,7 +24,7 @@ export default function SetBannerIcon() {
   );
   const [iconImage, setIconImage] = useState(communityData.iconImage ?? null);
   const [iconImageUrl, setIconImageUrl] = useState(
-    communityData.bannerImage
+    communityData.iconImage
       ? URL.createObjectURL(communityData.iconImage)
       : null
   );
