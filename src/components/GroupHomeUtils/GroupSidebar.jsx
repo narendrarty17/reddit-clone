@@ -1,4 +1,4 @@
-import { CreationAndVisibility } from "./svgComponents/GroupSidebarSvgs";
+import { CreationAndVisibility } from "../svgComponents/GroupSidebarSvgs";
 import {
   NameAndDesc,
   MembersCount,
