@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CommunityCreationContext } from "../../context/CommunityCreationContext";
+import { GroupCreationContext } from "../../context/GroupCreationContext";
 import SearchBar from "../utils/SearchBar";
 import ModalButtons from "./modalUtils/ModalButtons";
 import ModalTopSection from "./modalUtils/ModalTopSection";
@@ -38,9 +38,8 @@ const topicsData = [
 ];
 
 export default function GroupCategory() {
-  const { communityData, backPage, submitPage, addCommunityData } = useContext(
-    CommunityCreationContext
-  );
+  const { communityData, backPage, submitPage, addCommunityData } =
+    useContext(GroupCreationContext);
   const [topics, setTopics] = useState(communityData.selectedTopics ?? []);
 
   const handleTopicItemSelection = (item) => {

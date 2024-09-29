@@ -3,11 +3,11 @@ import {
   Restricted,
   Private,
   Mature,
-} from "../svgComponents/CommunityCreationSvgs";
+} from "../svgComponents/GroupCreationSvgs";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { useContext, useEffect, useState } from "react";
-import { CommunityCreationContext } from "../../context/CommunityCreationContext";
+import { GroupCreationContext } from "../../context/GroupCreationContext";
 
 const componentMap = {
   Public: Public,
@@ -34,9 +34,8 @@ const categories = [
 ];
 
 export default function GrouopVisibility() {
-  const { communityData, submitPage, backPage, addCommunityData } = useContext(
-    CommunityCreationContext
-  );
+  const { communityData, submitPage, backPage, addCommunityData } =
+    useContext(GroupCreationContext);
 
   const [visibility, setVisibility] = useState(
     communityData.visibility ?? "Public"
@@ -53,7 +52,7 @@ export default function GrouopVisibility() {
 
   useEffect(() => {
     addCommunityData({ visibility, isMature });
-  }, [visibility, isMature]);
+  }, [visibility, isMature, addCommunityData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

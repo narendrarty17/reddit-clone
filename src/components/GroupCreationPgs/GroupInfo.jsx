@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { CommunityCreationContext } from "../../context/CommunityCreationContext";
+import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalTopSection from "./modalUtils/ModalTopSection";
-import CommunityDetail from "./modalUtils/CommunityDetail";
+import GroupDetail from "./modalUtils/GroupDetail";
 import ModalButtons from "./modalUtils/ModalButtons";
 
 const title = "Tell us about your community";
@@ -10,23 +10,22 @@ const description =
 
 export default function GroupInfo() {
   const [error, setError] = useState(null);
-  const { communityData } = useContext(CommunityCreationContext);
+  const { communityData } = useContext(GroupCreationContext);
   const [name, setName] = useState(communityData.name || "");
   const [desc, setDesc] = useState(communityData.description || "");
-  const [iconImageUrl, setIconImageUrl] = useState(
+  const [iconImageUrl] = useState(
     communityData.iconImage
       ? URL.createObjectURL(communityData.iconImage)
       : null
   );
-  const [bannerImageUrl, setBannerImageUrl] = useState(
+  const [bannerImageUrl] = useState(
     communityData.bannerImage
       ? URL.createObjectURL(communityData.bannerImage)
       : null
   );
 
-  const { submitPage, handleCancel, addCommunityData } = useContext(
-    CommunityCreationContext
-  );
+  const { submitPage, handleCancel, addCommunityData } =
+    useContext(GroupCreationContext);
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -64,7 +63,7 @@ export default function GroupInfo() {
               placeholder="Descripton*"
             />
           </div>
-          <CommunityDetail
+          <GroupDetail
             name={name}
             description={desc}
             banner={bannerImageUrl}

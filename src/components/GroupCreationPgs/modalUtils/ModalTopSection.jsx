@@ -1,9 +1,9 @@
-import { Close } from "../../svgComponents/CommunityCreationSvgs";
+import { Close } from "../../svgComponents/GroupCreationSvgs";
 import { useContext } from "react";
-import { CommunityCreationContext } from "../../../context/CommunityCreationContext";
+import { GroupCreationContext } from "../../../context/GroupCreationContext";
 
 export default function ModalTopSection({ title, description, children }) {
-  const { handleCancel } = useContext(CommunityCreationContext);
+  const { handleCancel } = useContext(GroupCreationContext);
   return (
     <div className="relative flex flex-col gap-3 md:gap-6">
       <button className="absolute top-0 right-0" onClick={handleCancel}>

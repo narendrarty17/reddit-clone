@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const ItemCreationContext = createContext({
+export const GroupCreationContext = createContext({
   handleCancel: () => {},
   addCommunityData: () => {},
   onSubmit: () => {},

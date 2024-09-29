@@ -1,18 +1,17 @@
 import ModalTopSection from "./modalUtils/ModalTopSection";
-import CommunityDetail from "./modalUtils/CommunityDetail";
+import GroupDetail from "./modalUtils/GroupDetail";
 import { useContext, useEffect, useState } from "react";
-import { CommunityCreationContext } from "../../context/CommunityCreationContext";
+import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
-import { Image, Delete } from "../svgComponents/CommunityCreationSvgs";
+import { Image, Delete } from "../svgComponents/GroupCreationSvgs";
 
 const title = "Style your community";
 const description =
   "Adding visual flair will catch new members attention and help establish your community's culture!<br /> You can update this at any time";
 
 export default function GroupImgs() {
-  const { communityData, submitPage, addCommunityData, backPage } = useContext(
-    CommunityCreationContext
-  );
+  const { communityData, submitPage, addCommunityData, backPage } =
+    useContext(GroupCreationContext);
   const [bannerImage, setBannerImage] = useState(
     communityData.bannerImage ?? null
   );
@@ -130,7 +129,7 @@ export default function GroupImgs() {
             />
           </div>
         </section>
-        <CommunityDetail
+        <GroupDetail
           name={name}
           description={desc}
           banner={bannerImageUrl}

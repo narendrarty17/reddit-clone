@@ -9,7 +9,7 @@ import {
   useCallback,
 } from "react";
 import { createPortal } from "react-dom";
-import { CommunityCreationContext } from "../context/CommunityCreationContext";
+import { GroupCreationContext } from "../context/GroupCreationContext";
 import trackingDots from "./GroupCreationPgs/modalUtils/TrackingDots";
 
 const modalPages = [
@@ -160,7 +160,7 @@ export default forwardRef(function GroupCreation({ onReset }, ref) {
   }, [readyToSubmit, communityData, currentPage, handleCancel, handleModalSubmit]);
 
   return createPortal(
-    <CommunityCreationContext.Provider
+    <GroupCreationContext.Provider
       value={{
         handleCancel,
         addCommunityData,
@@ -185,7 +185,7 @@ export default forwardRef(function GroupCreation({ onReset }, ref) {
           <section className="mt-4 hidden md:flex gap-1">{tracker}</section>
         </div>
       </dialog>
-    </CommunityCreationContext.Provider>,
+    </GroupCreationContext.Provider>,
     document.getElementById("modal")
   );
 });

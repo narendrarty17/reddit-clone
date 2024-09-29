@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import defaultBanner from "../../assets/imgs/Global/defaultBanner.svg";
+import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
-import defaultBanner from "../../assets/imgs/CommunityHome/defaultBanner.svg";
-import defaultLogo from "../../assets/imgs/CommunityHome/defaultLogo.svg";
-
-import { Notification } from "../svgComponents/CommunityHomeSvgs";
+import { Notification } from "../svgComponents/GroupHomeSvgs";
 
 export default function GroupHeader() {
   return (

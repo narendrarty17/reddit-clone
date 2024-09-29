@@ -1,7 +1,7 @@
-import defaultLogo from "../../../assets/imgs/Modal/defaultLogo.svg";
-import defaultBanner from "../../../assets/imgs/Modal/defaultBanner.svg";
+import defaultLogo from "../../../assets/imgs/Global/defaultLogo.svg";
+import defaultBanner from "../../../assets/imgs/Global/defaultBanner.svg";
 
-export default function CommunityDetail({
+export default function GroupDetail({
   name,
   description,
   banner = null,
