@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import star from "../../../assets/imgs/Navigation/star.svg";
+import { Star } from "../../svgComponents/NavBtnSvgs";
 
 export default function NavButton({ iconName, icon, favIcon }) {
   const [favSelected, setFavSelected] = useState(false);
@@ -26,7 +26,7 @@ export default function NavButton({ iconName, icon, favIcon }) {
           className={`${favSelected ? "bg-midDarkGray" : ""}`}
           onClick={handleFavSelect}
         >
-          <img className="h-6" src={star} alt="favourite icon" />
+          <Star />
         </div>
       )}
     </button>

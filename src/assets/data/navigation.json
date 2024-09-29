@@ -1,8 +1,0 @@
-[
-  {
-    "name": "main",
-    "create": "false",
-    "list": ["home", "popular", "explore", "all"],
-    "extension": "svg"
-  }
-]

@@ -1,4 +1,4 @@
-import searchIcon from "../../assets/imgs/searchIcon.svg";
+import { Search } from "../svgComponents/GloalSvgs";
 export default function SearchBar({ placeholder }) {
   return (
     <div className="relative">
@@ -7,11 +7,9 @@ export default function SearchBar({ placeholder }) {
         type="text"
         placeholder={placeholder}
       />
-      <img
-        className="absolute top-1/2 left-3 -translate-y-1/2 w-8 h-8"
-        src={searchIcon}
-        alt="Search icon"
-      />
+      <div className="absolute top-1/2 left-3 -translate-y-1/2">
+        <Search />
+      </div>
     </div>
   );
 }

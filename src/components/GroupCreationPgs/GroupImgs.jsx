@@ -1,16 +1,15 @@
 import ModalTopSection from "./modalUtils/ModalTopSection";
-import imageIcon from "../../assets/imgs/Modal/image.svg";
-import deleteIcon from "../../assets/imgs/Modal/delete.svg";
 import CommunityDetail from "./modalUtils/CommunityDetail";
 import { useContext, useEffect, useState } from "react";
 import { CommunityCreationContext } from "../../context/CommunityCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
+import { Image, Delete } from "../svgComponents/CommunityCreationSvgs";
 
 const title = "Style your community";
 const description =
   "Adding visual flair will catch new members attention and help establish your community's culture!<br /> You can update this at any time";
 
-export default function SetBannerIcon() {
+export default function GroupImgs() {
   const { communityData, submitPage, addCommunityData, backPage } = useContext(
     CommunityCreationContext
   );
@@ -76,7 +75,7 @@ export default function SetBannerIcon() {
                 <button
                   onClick={() => deleteImgs(setBannerImage, setBannerImageUrl)}
                 >
-                  <img src={deleteIcon} alt="delete icon" className="h-5" />
+                  <Delete />
                 </button>
               </div>
             )}
@@ -84,7 +83,7 @@ export default function SetBannerIcon() {
               className="flex gap-2 px-3 py-2 bg-darkMidGray hover:bg-midGray focus:bg-lightMidGray rounded-2xl"
               onClick={() => document.getElementById("bannerInput").click()}
             >
-              <img className="h-6" src={imageIcon} alt="upload banner" />
+              <Image />
               <p>Add</p>
             </button>
             <input
@@ -109,7 +108,7 @@ export default function SetBannerIcon() {
                 <button
                   onClick={() => deleteImgs(setIconImage, setIconImageUrl)}
                 >
-                  <img src={deleteIcon} alt="delete icon" className="h-5" />
+                  <Delete />
                 </button>
               </div>
             )}
@@ -117,7 +116,7 @@ export default function SetBannerIcon() {
               className="flex gap-2 px-3 py-2 bg-darkMidGray hover:bg-midGray focus:bg-lightMidGray rounded-2xl"
               onClick={() => document.getElementById("iconInput").click()}
             >
-              <img className="h-6" src={imageIcon} alt="upload icon" />
+              <Image />
               <p>Add</p>
             </button>
             <input

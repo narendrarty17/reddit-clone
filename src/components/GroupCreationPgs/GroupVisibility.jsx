@@ -33,7 +33,7 @@ const categories = [
   },
 ];
 
-export default function CommunityVisibility() {
+export default function GrouopVisibility() {
   const { communityData, submitPage, backPage, addCommunityData } = useContext(
     CommunityCreationContext
   );

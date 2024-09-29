@@ -10,19 +10,23 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { CommunityCreationContext } from "../context/CommunityCreationContext";
-import trackingDots from "./ModalPages/modalUtils/TrackingDots";
-import modalPagesData from "../assets/data/itemCreationModal.json";
+import trackingDots from "./GroupCreationPgs/modalUtils/TrackingDots";
 
-const modalPages = modalPagesData.modalPages;
+const modalPages = [
+  "GroupInfo",
+  "GroupImgs",
+  "GroupCategory",
+  "GroupVisibility",
+];
 
 const modalComponents = modalPages.reduce((components, page) => {
-  components[page] = lazy(() => import(`./ModalPages/${page}`));
+  components[page] = lazy(() => import(`./GroupCreationPgs/${page}`));
   return components;
 }, {});
 
-export default forwardRef(function CommunityCreationModal({ onReset }, ref) {
+export default forwardRef(function GroupCreation({ onReset }, ref) {
   const dialog = useRef();
-  const [currentPage, setCurrentPage] = useState("CommunityInfo");
+  const [currentPage, setCurrentPage] = useState("GroupInfo");
   const [communityData, setCommunityData] = useState({});
   const [readyToSubmit, setReadyToSubmit] = useState(false);
 
@@ -93,7 +97,7 @@ export default forwardRef(function CommunityCreationModal({ onReset }, ref) {
     return result.path; // Assuming server responds with {path: 'url_to_image'}
   };
 
-  const handleModalSubmit = async (data) => {
+  const handleModalSubmit = useCallback(async (data) => {
     console.log(
       "Inside handleModalSubmit before submitting community data: ",
       data
@@ -136,7 +140,7 @@ export default forwardRef(function CommunityCreationModal({ onReset }, ref) {
       // Handle network or other errors
       alert("An error occurred while saving community data.");
     }
-  };
+  }, []);
 
   const tracker = trackingDots(
     modalPages.length,
@@ -153,7 +157,7 @@ export default forwardRef(function CommunityCreationModal({ onReset }, ref) {
       handleModalSubmit(communityData);
       handleCancel();
     }
-  }, [readyToSubmit, communityData, currentPage, handleCancel]);
+  }, [readyToSubmit, communityData, currentPage, handleCancel, handleModalSubmit]);
 
   return createPortal(
     <CommunityCreationContext.Provider

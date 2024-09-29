@@ -37,7 +37,7 @@ const topicsData = [
   },
 ];
 
-export default function CommunityCategory() {
+export default function GroupCategory() {
   const { communityData, backPage, submitPage, addCommunityData } = useContext(
     CommunityCreationContext
   );

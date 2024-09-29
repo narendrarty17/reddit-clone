@@ -1,8 +1,11 @@
+const width = "27px";
+const height = "27px";
+
 function ChatIcon() {
   return (
     <svg
-      width="27px"
-      height="27px"
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +33,6 @@ function ChatIcon() {
 }
 
 function Notification() {
-  const width = "28px";
-  const height = "28px";
   const color = "#8ba2ad";
 
   return (

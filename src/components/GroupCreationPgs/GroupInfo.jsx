@@ -8,7 +8,7 @@ const title = "Tell us about your community";
 const description =
   "A name and description help people understand what your community is all about";
 
-export default function CommunityInfo() {
+export default function GroupInfo() {
   const [error, setError] = useState(null);
   const { communityData } = useContext(CommunityCreationContext);
   const [name, setName] = useState(communityData.name || "");

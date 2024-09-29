@@ -1,17 +1,17 @@
-import user from "../assets/imgs/Post/user.png";
+import avatar from "../assets/imgs/avatar.png";
 import {
   UpDownVote,
   Comment,
   Badge,
   Share,
-} from "../assets/imgs/Post/PostSvgs.jsx";
+} from "../components/svgComponents/PostSvgs";
 
 export default function Post() {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex flex-col gap-4 px-5 py-3 mx-1 md:mx-3 rounded-sm md:rounded-2xl hover:bg-lightMidGray">
         <section className="flex gap-3 items-center">
-          <img className="w-7 rounded-full" src={user} alt="user icon" />
+          <img className="w-7 rounded-full" src={avatar} alt="user icon" />
           <span className="text-white">r/insomina</span>
           <div className="flex gap-2 items-center">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>

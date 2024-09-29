@@ -5,7 +5,7 @@ import defaultLogo from "../../assets/imgs/CommunityHome/defaultLogo.svg";
 
 import { Notification } from "../svgComponents/CommunityHomeSvgs";
 
-export default function CommunityHeader() {
+export default function GroupHeader() {
   return (
     <div className="w-[100%]">
       <section className="md:pl-4 md:pr-1 md:py-2 w-[100%]">

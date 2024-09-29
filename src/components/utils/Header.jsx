@@ -1,10 +1,9 @@
 import redditLogo from "../../assets/imgs/Header/reddit.svg";
-import { ChatIcon } from "../svgComponents/HeaderSvgs";
-import { Notification } from "../svgComponents/HeaderSvgs";
+import avatar from "../../assets/imgs/avatar.png";
 
+import { ChatIcon, Notification } from "../svgComponents/HeaderSvgs";
 import { Create } from "../svgComponents/GloalSvgs";
 
-import avatar from "../../assets/imgs/Header/06_avatar.png";
 import SearchBar from "./SearchBar";
 
 export default function Header() {

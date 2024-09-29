@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RulesArrow } from "./SidebarSvgs";
+import { RulesArrow } from "../svgComponents/GroupSidebarSvgs";
 
 const memberCount = 14;
 const memberOnline = 8;

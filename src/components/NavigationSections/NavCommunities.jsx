@@ -1,8 +1,8 @@
-import downArrow from "../../assets/imgs/Navigation/downArrow.svg";
-import upArrow from "../../assets/imgs/Navigation/upArrow.svg";
 import CreateBtn from "./NavUtils/CreateBtn";
-import CommunityCreationModal from "../CommunityCreationModal";
+import GroupCreation from "../GroupCreation";
 import NavBtn from "./NavUtils/NavBtn";
+
+import { UpArrow, DownArrow } from "../svgComponents/NavCommunitySvgs";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -67,16 +67,13 @@ export default function NavCommunities() {
 
   return (
     <>
-      <CommunityCreationModal ref={dialog} />
+      <GroupCreation ref={dialog} />
       <section className="flex flex-col gap-1 border-b-[1px] border-midGray py-4">
         <span className="flex justify-between items-center gap-6 px-4 py-2 ">
           <h3>Communities</h3>
-          <img
-            className="h-7"
-            onClick={toggleCollapse}
-            src={isOpen ? upArrow : downArrow}
-            alt={`Communities ${isOpen ? "open" : "close"}`}
-          />
+          <button onClick={toggleCollapse}>
+            {isOpen ? <UpArrow /> : <DownArrow />}
+          </button>
         </span>
         {isOpen && (
           <div className="flex flex-col gap-1">
