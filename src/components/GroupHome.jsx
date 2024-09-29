@@ -1,5 +1,5 @@
 import GroupHeader from "./GroupHomeUtils/GroupHeader.jsx";
-import Post from "./Post.jsx";
+import Post from "./utils/Post.jsx";
 import GroupSidebar from "./GroupSidebar.jsx";
 
 export default function GroupHome({ name }) {

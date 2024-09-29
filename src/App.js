@@ -1,5 +1,5 @@
 import Header from './components/utils/Header';
-import Navigation from './components/Navigation';
+import Nav from './components/Nav';
 import GroupHome from './components/GroupHome';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <Header />
       <div className='flex w-[100%]'>
-        <Navigation />
+        <Nav />
         <GroupHome name="DryEye" />
       </div>
     </>

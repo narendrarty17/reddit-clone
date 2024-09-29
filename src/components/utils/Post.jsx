@@ -1,10 +1,5 @@
-import avatar from "../assets/imgs/avatar.png";
-import {
-  UpDownVote,
-  Comment,
-  Badge,
-  Share,
-} from "../components/svgComponents/PostSvgs";
+import avatar from "../../assets/imgs/avatar.png";
+import { UpDownVote, Comment, Badge, Share } from "../svgComponents/PostSvgs";
 
 export default function Post() {
   return (
