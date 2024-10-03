@@ -4,7 +4,7 @@ import GroupPosts from "./GroupHomeUtils/GroupPosts.jsx";
 
 export default function GroupHome({ name }) {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col w-auto gap-10">
       <GroupHeader />
       <div className="flex justify-between">
         <GroupPosts />

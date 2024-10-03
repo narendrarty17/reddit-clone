@@ -13,7 +13,7 @@ export default function NavButton({ iconName, icon, favIcon }) {
   return (
     <button
       key={iconName}
-      className="flex items-center gap-6 px-4 py-2 
+      className="flex items-center gap-6 px-2 py-2 w-[95%] box-content
         rounded-xl justify-between focus:bg-midGray hover:bg-midDarkGray"
     >
       <div className="flex items-center gap-4 w-auto">
