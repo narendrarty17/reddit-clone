@@ -80,21 +80,28 @@ export default forwardRef(function GroupCreation({ onReset }, ref) {
     }
   };
 
-  const uploadImage = async (imageName, image, uploadUrl) => {
+  const uploadImageToCloudinary = async (image, groupId, type) => {
+    const public_id = Date.now() + "-" + type; // Correctly evaluated timestamp
     const formData = new FormData();
-    formData.append(imageName, image);
 
-    const response = await fetch(uploadUrl, {
-      method: "POST",
-      body: formData,
-    });
+    formData.append("file", image);
+    formData.append("upload_preset", "unsigned_upload"); // unsigned preset
+    formData.append("public_id", public_id); // unique file name with timestamp
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dcfw2vxom/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Image upload failed");
     }
 
     const result = await response.json();
-    return result.path; // Assuming server responds with {path: 'url_to_image'}
+    return result.secure_url; // Return the secure URL of the uploaded image
   };
 
   const handleModalSubmit = useCallback(async (data) => {
@@ -103,15 +110,16 @@ export default forwardRef(function GroupCreation({ onReset }, ref) {
       data
     );
     try {
-      const bannerPath = await uploadImage(
-        "bannerImage",
+      const groupId = data.name.split(" ").join(""); // Make sure that you have the group id in your data
+      const bannerPath = await uploadImageToCloudinary(
         data.bannerImage,
-        "http://localhost:5000/upload/banner"
+        groupId,
+        "banner"
       );
-      const iconPath = await uploadImage(
-        "iconImage",
+      const iconPath = await uploadImageToCloudinary(
         data.iconImage,
-        "http://localhost:5000/upload/icon"
+        groupId,
+        "logo"
       );
 
       data.bannerImage = bannerPath;

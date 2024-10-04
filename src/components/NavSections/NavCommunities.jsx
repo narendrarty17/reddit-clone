@@ -39,6 +39,7 @@ export default function NavCommunities() {
   const buttonList = communityList.map((community) => {
     const iconName = community.name;
     const icon = community.iconImage;
+    console.log("Community data: ", community);
 
     return (
       <NavBtn

@@ -3,15 +3,6 @@ const path = require('path');
 
 const communityDataFilePath = path.join(__dirname, '../community-data.json');
 
-function updateImagePaths(data) {
-    const port = process.env.PORT || 5000;
-    return data.map(community => ({
-        ...community,
-        bannerImage: `http://localhost:${port}/uploads/${path.basename(community.bannerImage)}`,
-        iconImage: `http://localhost:${port}/uploads/${path.basename(community.iconImage)}`
-    }));
-}
-
 exports.getCommunityByName = async (req, res) => {
     const { name } = req.params;
     const communities = await getCommunityData();
@@ -19,9 +10,7 @@ exports.getCommunityByName = async (req, res) => {
     const community = communities.find(community => community.name.toLowerCase() === name.toLowerCase());
 
     if (community) {
-        // Update image paths before returning
-        const updatedCommunity = updateImagePaths([community])[0]; // Get the first item from the array
-        res.json(updatedCommunity);
+        res.json(community);
     } else {
         res.status(404).json({ message: 'Community not found' });
     }
@@ -31,7 +20,6 @@ exports.getAllCommunities = (req, res) => {
     fs.readFile(communityDataFilePath, 'utf8', (err, data) => {
         if (err) return res.status(500).json({ message: 'Error reading data' });
         let communities = JSON.parse(data);
-        communities = updateImagePaths(communities);
         res.status(200).json(communities);
     });
 };

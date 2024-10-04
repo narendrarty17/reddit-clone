@@ -55,12 +55,14 @@ export default function GroupInfo() {
               className="rounded-2xl h-14 p-4 outline-none bg-darkMidGray hover:bg-midGray"
               type="text"
               placeholder="Community name*"
+              maxLength="18"
             />
             <textarea
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               className="rounded-2xl h-40 p-4 md:w-auto outline-none bg-darkMidGray hover:bg-midGray"
               placeholder="Descripton*"
+              maxLength="200"
             />
           </div>
           <GroupDetail

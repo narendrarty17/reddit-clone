@@ -17,7 +17,7 @@ export default function NavButton({ iconName, icon, favIcon }) {
         rounded-xl justify-between focus:bg-midGray hover:bg-midDarkGray"
     >
       <div className="flex items-center gap-4 w-auto">
-        <img className="h-7 rounded-full" src={icon} alt={iconName} />
+        <img className="w-7 h-7 rounded-full" src={icon} alt={iconName} />
         {/* <span>{iconName.charAt(0).toUpperCase() + iconName.slice(1)}</span> */}
         <span>{name}</span>
       </div>
