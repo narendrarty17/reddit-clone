@@ -3,7 +3,7 @@ import { UpDownVote, Comment, Badge, Share } from "../svgComponents/PostSvgs";
 
 export default function Post() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 max-w-[800px]">
       <div className="flex flex-col gap-4 px-5 py-3 mx-1 md:mx-3 rounded-sm md:rounded-2xl hover:bg-lightMidGray">
         <section className="flex gap-3 items-center">
           <img className="w-7 rounded-full" src={avatar} alt="user icon" />

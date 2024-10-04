@@ -55,7 +55,6 @@ export default function GroupInfo() {
               className="rounded-2xl h-14 p-4 outline-none bg-darkMidGray hover:bg-midGray"
               type="text"
               placeholder="Community name*"
-              maxLength="18"
             />
             <textarea
               value={desc}
