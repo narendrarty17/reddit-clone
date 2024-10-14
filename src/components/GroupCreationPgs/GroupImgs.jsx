@@ -3,7 +3,9 @@ import GroupDetail from "./modalUtils/GroupDetail";
 import { useContext, useEffect, useState } from "react";
 import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
-import { Image, Delete } from "../svgComponents/GroupCreationSvgs";
+import { Delete } from "../svgComponents/GroupCreationSvgs";
+import CropImage from "../CropImage";
+import { base64ToBlob } from "../../services/convertType";
 
 const title = "Style your community";
 const description =
@@ -34,14 +36,21 @@ export default function GroupImgs() {
     setDesc(communityData.description);
   }, [communityData]);
 
-  const handleFileChange = (event, setter, setterUrl) => {
-    const file = event.target.files[0];
-    if (file) {
-      // For demonstration purposes, storing the file object itself
-      // In a real application, you might want to upload it or process it further
-      setter(file);
-      setterUrl(URL.createObjectURL(file));
+  const handleImageChange = (img, setter, setterUrl) => {
+    let image;
+
+    if (typeof img === "string" && img.startsWith("data:")) {
+      // If img is a base64 string, convert to Blob
+      image = base64ToBlob(img, "image/jpeg"); // Adjust contentType as needed
+    } else if (img instanceof Blob || img instanceof File) {
+      // If it's already a Blob or File
+      image = img;
+    } else {
+      console.error("Invalid image type passed:", img);
+      return;
     }
+    setter(image);
+    setterUrl(URL.createObjectURL(image));
   };
 
   const handleNext = (e) => {
@@ -78,21 +87,11 @@ export default function GroupImgs() {
                 </button>
               </div>
             )}
-            <button
-              className="flex gap-2 px-3 py-2 bg-darkMidGray hover:bg-midGray focus:bg-lightMidGray rounded-2xl"
-              onClick={() => document.getElementById("bannerInput").click()}
-            >
-              <Image />
-              <p>Add</p>
-            </button>
-            <input
-              id="bannerInput"
-              type="file"
-              accept="image/"
-              style={{ display: "none" }}
-              onChange={(e) =>
-                handleFileChange(e, setBannerImage, setBannerImageUrl)
-              }
+            <CropImage
+              type="banner"
+              updateImage={(img) => {
+                handleImageChange(img, setBannerImage, setBannerImageUrl);
+              }}
             />
           </div>
           <div className="flex justify-between items-center">
@@ -111,21 +110,11 @@ export default function GroupImgs() {
                 </button>
               </div>
             )}
-            <button
-              className="flex gap-2 px-3 py-2 bg-darkMidGray hover:bg-midGray focus:bg-lightMidGray rounded-2xl"
-              onClick={() => document.getElementById("iconInput").click()}
-            >
-              <Image />
-              <p>Add</p>
-            </button>
-            <input
-              id="iconInput"
-              type="file"
-              accept="image/"
-              style={{ display: "none" }}
-              onChange={(e) =>
-                handleFileChange(e, setIconImage, setIconImageUrl)
-              }
+            <CropImage
+              type="logo"
+              updateImage={(img) => {
+                handleImageChange(img, setIconImage, setIconImageUrl);
+              }}
             />
           </div>
         </section>

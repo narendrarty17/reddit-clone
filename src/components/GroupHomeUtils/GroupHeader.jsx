@@ -3,24 +3,24 @@ import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
 import { Notification } from "../svgComponents/GroupHomeSvgs";
 
-export default function GroupHeader() {
+export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
   return (
     <div className="w-[100%]">
       <section className="md:pl-4 md:pr-1 md:py-2 w-[100%]">
         <img
           className="w-full h-20 md:h-24 md:rounded-lg"
-          src={defaultBanner}
+          src={banner || defaultBanner}
           alt="community banner"
         />
         <div className="px-3 pt-3 md:px-6 md:pt-0 md:mt-[-40px] flex flex-col items-start gap-4 md:flex-row md:justify-between md:items-end">
           <div className="flex items-start gap-3 md:gap-4">
             <img
               className="h-12 w-12 md:h-24 md:w-24 rounded-full"
-              src={defaultLogo}
+              src={logo || defaultLogo}
               alt="community logo"
             />
             <div className="mt-0 md:mt-[50px]  text-white font-bold">
-              <h3 className="text-xl md:text-3xl">r/dryEyes</h3>
+              <h3 className="text-xl md:text-3xl">r/{name}</h3>
               <div className="flex md:hidden gap-3 items-center text-sm font-normal text-veryLightGray">
                 <span>422k members</span>
                 <span className="flex gap-1 items-center">
@@ -31,10 +31,13 @@ export default function GroupHeader() {
             </div>
           </div>
           <div className="flex items-center gap-4 text-white">
-            <div className="flex gap-2 px-2 py-1 items-center border-gray-400 border-[1px] rounded-3xl">
+            <button
+              onClick={handleCreatePost}
+              className="flex gap-2 px-2 py-1 items-center border-gray-400 border-[1px] rounded-3xl"
+            >
               <span className="text-2xl">+</span>
               <p className="text-md">Create Post</p>
-            </div>
+            </button>
             <div className="flex items-center justify-center border-[1px] border-gray-400 rounded-full p-2">
               <Notification />
             </div>

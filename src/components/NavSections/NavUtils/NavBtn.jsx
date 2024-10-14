@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Star } from "../../svgComponents/NavBtnSvgs";
 
 export default function NavButton({ iconName, icon, favIcon }) {
   const [favSelected, setFavSelected] = useState(false);
   const name = iconName.length > 14 ? iconName.slice(0, 13) + ".." : iconName;
+
+  const navigate = useNavigate();
 
   const handleFavSelect = function () {
     setFavSelected((prevState) => !prevState);
@@ -13,6 +16,7 @@ export default function NavButton({ iconName, icon, favIcon }) {
   return (
     <button
       key={iconName}
+      onClick={() => navigate(`/groupHome/${name}`)}
       className="flex items-center gap-6 px-2 py-2 w-[95%] box-content
         rounded-xl justify-between focus:bg-midGray hover:bg-midDarkGray"
     >

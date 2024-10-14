@@ -1,5 +1,3 @@
-const cloudinary = require('../utils/cloudinary');
-
 exports.uploadBanner = (req, res) => {
     if (req.fileValidationError) {
         return res.status(400).json({ message: req.fileValidationError });

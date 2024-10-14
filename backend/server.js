@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const mongoose = require('mongoose');
 
 // Initialize Express app
 const app = express();
@@ -18,11 +19,24 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
 
+console.log("mongodb url: ", process.env.DB_CONNECTION_STRING);
+
+// Connect to MongoDB
+mongoose.connect(process.env.DB_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log('MongoDB connection error:', err))
+
 // Routes
 const communityRoutes = require('./routes/community');
 const uploadRoutes = require('./routes/upload');
+const postRoutes = require('./routes/post');
+
 app.use('/community', communityRoutes);
 app.use('/upload', uploadRoutes);
+app.use('/post', postRoutes);
 
 // Start the server
 app.listen(port, () => {

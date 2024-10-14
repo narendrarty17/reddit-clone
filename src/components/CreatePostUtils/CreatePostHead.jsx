@@ -1,9 +1,8 @@
-import { DownArrow } from "../svgComponents/GloalSvgs";
 import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
-export default function CreatePostHead({ image, name }) {
+export default function CreatePostHead({ name, logo }) {
   const groupName = name || "Group Name";
-  const groupLogo = image || defaultLogo;
+  const groupLogo = logo || defaultLogo;
   return (
     <section className="flex flex-col gap-4">
       <div className="flex justify-between">

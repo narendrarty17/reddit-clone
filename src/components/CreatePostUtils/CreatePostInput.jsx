@@ -45,7 +45,7 @@ export default function CreatePostInput({ handlePostData }) {
             onChange={(e) => handleContentChange(e, "text")}
             placeholder="Body"
             value={content.value}
-            maxLength="200"
+            maxLength="300"
           />
         );
     }
@@ -94,9 +94,11 @@ export default function CreatePostInput({ handlePostData }) {
   };
 
   const handleSubmit = async () => {
-    await handlePostData({
+    console.log(content);
+    const { name, ...rest } = content;
+    handlePostData({
       title: title,
-      content: content,
+      content: rest,
     });
     handleCancel();
   };
@@ -136,7 +138,7 @@ export default function CreatePostInput({ handlePostData }) {
           onChange={(e) => handleTitleChange(e)}
           className={style}
           type="text"
-          maxLength={70}
+          maxLength={150}
           placeholder="Title*"
           value={title}
         />

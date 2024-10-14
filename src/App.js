@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import Header from './components/utils/Header';
 import Nav from './components/Nav';
 import GroupHome from './components/GroupHome';
-import CreatePost from './components/CreatePost';
+import Home from './components/Home';
+import CropImage from './components/CropImage';
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
         <Nav />
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<GroupHome name="DryEye" />} />
-            <Route path="/another" element={<CreatePost />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/groupHome/:groupName" element={<GroupHome name="Dry Eye" />} />
           </Routes>
         </div>
       </div>

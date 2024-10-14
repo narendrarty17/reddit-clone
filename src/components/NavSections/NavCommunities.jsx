@@ -10,10 +10,12 @@ export default function NavCommunities() {
   const [isOpen, setIsOpen] = useState(false);
   const [communityList, setCommunityList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [newEntryCount, setNewEntryCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const dialog = useRef();
 
   const toggleCollapse = () => setIsOpen((prevState) => !prevState);
+  const updateList = () => setNewEntryCount((prev) => prev + 1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,12 +36,11 @@ export default function NavCommunities() {
     };
 
     fetchData();
-  }, []);
+  }, [newEntryCount]);
 
   const buttonList = communityList.map((community) => {
     const iconName = community.name;
     const icon = community.iconImage;
-    console.log("Community data: ", community);
 
     return (
       <NavBtn
@@ -68,7 +69,7 @@ export default function NavCommunities() {
 
   return (
     <>
-      <GroupCreation ref={dialog} />
+      <GroupCreation ref={dialog} updateList={updateList} />
       <section className="flex flex-col gap-1 border-b-[1px] border-midGray py-4">
         <span className="flex justify-between items-center gap-6 px-4 py-2 ">
           <h3>Communities</h3>

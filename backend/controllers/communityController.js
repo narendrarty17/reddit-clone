@@ -1,27 +1,30 @@
-const fs = require('fs');
-const path = require('path');
-
-const communityDataFilePath = path.join(__dirname, '../community-data.json');
+const CommunitySchema = require('../models/CommunitySchema');
 
 exports.getCommunityByName = async (req, res) => {
     const { name } = req.params;
-    const communities = await getCommunityData();
 
-    const community = communities.find(community => community.name.toLowerCase() === name.toLowerCase());
+    try {
+        const community = await CommunitySchema.findOne({ name: name });
 
-    if (community) {
-        res.json(community);
-    } else {
-        res.status(404).json({ message: 'Community not found' });
+        if (community) {
+            res.json(community);
+        } else {
+            res.status(400).json({ message: 'Community not found' });
+        }
+    } catch (err) {
+        console.log("Error fetching community: ", err);
+        res.status(500).json({ message: 'Error fetching community' });
     }
 };
 
-exports.getAllCommunities = (req, res) => {
-    fs.readFile(communityDataFilePath, 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ message: 'Error reading data' });
-        let communities = JSON.parse(data);
+exports.getAllCommunities = async (req, res) => {
+    try {
+        const communities = await CommunitySchema.find();
         res.status(200).json(communities);
-    });
+    } catch (err) {
+        console.log('Error fetching communities:', err);
+        res.status(500).json({ message: 'Error fetching communities' });
+    }
 };
 
 exports.createCommunity = async (req, res) => {
@@ -43,31 +46,19 @@ exports.createCommunity = async (req, res) => {
     };
 
     try {
-        let data = await fs.promises.readFile(communityDataFilePath, 'utf8');
-        let communities = data ? JSON.parse(data) : [];
-
-        const nameExists = communities.some(community => community.name.trim().toLowerCase() === name.trim().toLowerCase());
-
+        // Check if community name already exists
+        const nameExists = await CommunitySchema.findOne({ name: name });
         if (nameExists) {
             return res.status(400).json({ message: 'Community name already exists' });
         }
 
-        communities.push(communityData);
-        await fs.promises.writeFile(communityDataFilePath, JSON.stringify(communities, null, 2));
+        // Create a new community document
+        const newCommunity = new CommunitySchema(communityData);
+        await newCommunity.save();
 
-        res.status(200).json({ message: 'Community saved successfully' });
+        res.status(201).json({ message: 'Community saved successfully', community: newCommunity });
     } catch (err) {
-        console.error('Error processing file:', err);
-        res.status(500).json({ message: 'Error processing file' });
+        console.error('Error creating community', err);
+        res.status(500).json({ message: 'Error creating community' });
     }
 };
-
-async function getCommunityData() {
-    try {
-        const data = await fs.promises.readFile(communityDataFilePath, 'utf8');
-        return JSON.parse(data);
-    } catch (err) {
-        console.error('Error reading community data:', err);
-        return [];
-    }
-}
