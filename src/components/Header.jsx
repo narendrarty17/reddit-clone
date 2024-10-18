@@ -1,14 +1,14 @@
-import redditLogo from "../../assets/imgs/Header/reddit.svg";
-import avatar from "../../assets/imgs/avatar.png";
+import redditLogo from "../assets/imgs/Header/reddit.svg";
+import avatar from "../assets/imgs/avatar.png";
 
-import { ChatIcon, Notification } from "../svgComponents/HeaderSvgs";
-import { Create } from "../svgComponents/GloalSvgs";
+import { ChatIcon, Notification } from "./svgComponents/HeaderSvgs";
+import { Create } from "./svgComponents/GloalSvgs";
+import { Button } from "./utils/Button";
+import SearchBar from "./utils/SearchBar";
+import Login from "./Login";
 
-import { Button } from "./Button";
-
-import SearchBar from "./SearchBar";
-import Login from "../Login";
 import { useCallback, useState } from "react";
+
 export default function Header() {
   const [closeModal, setCloseModal] = useState();
 

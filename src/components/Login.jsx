@@ -13,7 +13,7 @@ const Login = ({ handleClose }) => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      console.log("User details: ", result);
+      console.log("User details: ", user);
 
       // Handle successful login (e.g., redirect or update UI)
       setUserDetails(user);

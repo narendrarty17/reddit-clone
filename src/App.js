@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/utils/Header';
+import Header from './components/Header';
 import Nav from './components/Nav';
 import GroupHome from './components/GroupHome';
 import Home from './components/Home';
