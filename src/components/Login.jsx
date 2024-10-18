@@ -3,15 +3,30 @@ import { auth, provider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useEffect, useState } from "react";
 
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth";
+
 import Google from "../assets/imgs/Login/google.jpg";
 
 const Login = ({ handleClose }) => {
   const [userDetails, setUserDetails] = useState(null);
+  const dispatch = useDispatch();
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+      const { displayName, email, photoURL, emailVerified, phoneNumber } =
+        result.user;
+
+      const user = {
+        displayName,
+        email,
+        photoURL,
+        emailVerified,
+        phoneNumber,
+      };
+
+      dispatch(authActions.login(user));
 
       console.log("User details: ", user);
 

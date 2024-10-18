@@ -6,15 +6,24 @@ import { Create } from "./utils/svgComponents/GloalSvgs";
 import { Button } from "./utils/Button";
 import SearchBar from "./utils/SearchBar";
 import Login from "./Login";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../store/auth";
 
 import { useCallback, useState } from "react";
 
 export default function Header() {
   const [closeModal, setCloseModal] = useState();
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.auth.email);
+  const photoURL = useSelector((state) => state.auth.photoURL);
 
   const toggleModal = useCallback(() => {
     setCloseModal((prev) => !prev);
   }, []);
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
 
   return (
     <header className="flex p-3 w-[100%] justify-between items-center box-border border-b-[1px] border-midGray">
@@ -36,18 +45,24 @@ export default function Header() {
 
       {/* Right section */}
       <div className="hidden md:flex gap-1 items-center">
-        <ChatIcon />
-        <button className="flex gap-2 text-lightGray font-semibold hover:bg-midGray px-3 py-2 rounded-3xl">
-          <Create />
-          <span>Create</span>
-        </button>
-        <Notification />
-        <img
-          className="w-8 h-8 hover:bg-midGray px-2 py-2 box-content rounded-full"
-          src={avatar}
-          alt="create icon"
-        />
-        <Button handleClick={toggleModal} />
+        {email ? (
+          <div className="hidden md:flex gap-1 items-center">
+            <ChatIcon />
+            <button className="flex gap-2 text-lightGray font-semibold hover:bg-midGray px-3 py-2 rounded-3xl">
+              <Create />
+              <span>Create</span>
+            </button>
+            <Notification />
+            <img
+              className="w-8 h-8 hover:bg-midGray px-2 py-2 box-content rounded-full"
+              src={photoURL || avatar}
+              alt="create icon"
+            />
+            <Button text="Logout" handleClick={handleLogout} bgColor="red" />
+          </div>
+        ) : (
+          <Button text="Log In" handleClick={toggleModal} bgColor="red" />
+        )}
       </div>
       {closeModal && <Login handleClose={toggleModal} />}
     </header>
