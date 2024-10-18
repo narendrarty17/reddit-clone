@@ -51,4 +51,40 @@ const uploadPost = async (postData) => {
     }
 }
 
-export { uploadImage, uploadPost };
+const uploadGroupCreationData = async (data) => {
+    try {
+        const bannerPath = await uploadImage(data.bannerImage, "banner");
+        const iconPath = await uploadImage(data.iconImage, "logo");
+
+        data.bannerImage = bannerPath;
+        data.iconImage = iconPath;
+
+        // Handle modal submit code here
+
+        const response = await fetch("http://localhost:5000/community", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            alert("Community data saved!");
+            return true;
+        } else {
+            // Extract error message from the response
+            const errorData = await response.json();
+            const errorMessage =
+                errorData.message || "Failed to save community data";
+            alert(errorMessage);
+            return false;
+        }
+    } catch (error) {
+        // Handle network or other errors
+        alert("An error occurred while saving community data.");
+        return false;
+    }
+}
+
+export { uploadImage, uploadPost, uploadGroupCreationData };

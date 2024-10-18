@@ -5,6 +5,7 @@ import GroupHeader from "./GroupHomeUtils/GroupHeader.jsx";
 import GroupSidebar from "./GroupHomeUtils/GroupSidebar.jsx";
 import GroupPosts from "./GroupHomeUtils/GroupPosts.jsx";
 import CreatePost from "./CreatePost.jsx";
+import { Loading } from "./utils/Loading.jsx";
 
 export default function GroupHome() {
   const { groupName } = useParams();
@@ -37,7 +38,7 @@ export default function GroupHome() {
     fetchGroupDetails();
   }, [groupName]);
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading) return <Loading type="groupHome" />;
   if (error) return <div className="text-white">Error: {error}</div>;
 
   return (

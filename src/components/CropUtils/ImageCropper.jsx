@@ -7,11 +7,11 @@ import { useRef, useState } from "react";
 import setCanvasPreview from "./setCanvasPreview";
 
 const ImageCropper = ({ close, updateImage, type }) => {
-  const ASPECT_RATIO = type === "logo" ? 1 : type === "post" ? 1 : 10;
+  const ASPECT_RATIO = type === "logo" ? 1 : type === "post" ? 1.5 : 10;
   const MIN_DIMENSION = 150;
 
   const imgRef = useRef(null);
-  const previewCanvasRef = useState(null);
+  const previewCanvasRef = useRef(null);
   const [imgSrc, setImgSrc] = useState("");
   const [crop, setCrop] = useState();
   const [error, setError] = useState("");
@@ -42,7 +42,6 @@ const ImageCropper = ({ close, updateImage, type }) => {
 
   const onImageLoad = (e) => {
     const { width, height } = e.currentTarget;
-    const cropWidthInPercent = (MIN_DIMENSION / width) * 100;
 
     const crop = makeAspectCrop(
       {

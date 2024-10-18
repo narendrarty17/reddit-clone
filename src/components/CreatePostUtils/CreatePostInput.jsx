@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { compressImage } from "../../services/imageService";
 
 const contentTypeList = ["text", "image", "link"];
 const style =
@@ -55,10 +56,10 @@ export default function CreatePostInput({ handlePostData }) {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (e, type) => {
+  const handleContentChange = async (e, type) => {
     const allowedTypes = ["jpg", "jpeg", "png"];
     const file = type === "image" ? e.target.files[0] : null;
-    const maxSize = 2 * 1024 * 1024;
+    const maxSize = 4 * 1024 * 1024;
 
     const isValidImage =
       file && allowedTypes.includes(file.name.split(".").pop().toLowerCase());
@@ -67,15 +68,17 @@ export default function CreatePostInput({ handlePostData }) {
       alert("Only jpg, jpeg, or png files are allowed");
       return;
     } else if (type === "image" && file.size > maxSize) {
-      alert("File size exceeds 2 MB. Please choose a smaller file");
+      alert("File size exceeds 4 MB. Please choose a smaller file");
       return;
     }
+
+    const compressedImg = file ? await compressImage(file) : null;
 
     // Update the content state
     setContent((prevContent) => ({
       ...prevContent,
       type, // Set the content type
-      value: file || e.target.value, // Set the file or input value
+      value: compressedImg || e.target.value, // Set the file or input value
       name: file ? file.name : e.target.value.trim() !== "" ? true : false, // Set the name if it's a valid file, or true if input has a value
     }));
   };

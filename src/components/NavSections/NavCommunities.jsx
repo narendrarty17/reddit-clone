@@ -1,10 +1,11 @@
 import CreateBtn from "./NavUtils/CreateBtn";
 import GroupCreation from "../GroupCreation";
 import NavBtn from "./NavUtils/NavBtn";
+import { Loading } from "../utils/Loading";
 
 import { UpArrow, DownArrow } from "../svgComponents/NavCommunitySvgs";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function NavCommunities() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,10 @@ export default function NavCommunities() {
   const dialog = useRef();
 
   const toggleCollapse = () => setIsOpen((prevState) => !prevState);
-  const updateList = () => setNewEntryCount((prev) => prev + 1);
+  const updateList = useCallback(
+    () => setNewEntryCount((prev) => prev + 1),
+    []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +64,7 @@ export default function NavCommunities() {
   };
 
   if (isLoading) {
-    return <div className="flex justify-start p-4">Loading...</div>;
+    return <Loading type="navIcons" />;
   }
 
   if (errorMessage && !isLoading) {
@@ -79,7 +83,7 @@ export default function NavCommunities() {
         </span>
         {isOpen && (
           <div className="flex flex-col gap-1">
-            <CreateBtn createItem="community" onClick={handleCreateItem} />
+            <CreateBtn createItem="community" handleClick={handleCreateItem} />
             <div className="flex flex-col">{buttonList}</div>
           </div>
         )}

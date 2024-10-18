@@ -5,7 +5,7 @@ import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { Delete } from "../svgComponents/GroupCreationSvgs";
 import CropImage from "../CropImage";
-import { base64ToBlob } from "../../services/convertType";
+import { base64ToBlob, compressImage } from "../../services/imageService";
 
 const title = "Style your community";
 const description =
@@ -19,13 +19,13 @@ export default function GroupImgs() {
   );
   const [bannerImageUrl, setBannerImageUrl] = useState(
     communityData.bannerImage
-      ? URL.createObjectURL(communityData.bannerImage)
+      ? URL.createObjectURL(base64ToBlob(communityData.bannerImage))
       : null
   );
   const [iconImage, setIconImage] = useState(communityData.iconImage ?? null);
   const [iconImageUrl, setIconImageUrl] = useState(
     communityData.iconImage
-      ? URL.createObjectURL(communityData.iconImage)
+      ? URL.createObjectURL(base64ToBlob(communityData.iconImage))
       : null
   );
   const [name, setName] = useState("");
@@ -36,7 +36,7 @@ export default function GroupImgs() {
     setDesc(communityData.description);
   }, [communityData]);
 
-  const handleImageChange = (img, setter, setterUrl) => {
+  const handleImageChange = async (img, setter, setterUrl) => {
     let image;
 
     if (typeof img === "string" && img.startsWith("data:")) {
@@ -49,8 +49,9 @@ export default function GroupImgs() {
       console.error("Invalid image type passed:", img);
       return;
     }
-    setter(image);
     setterUrl(URL.createObjectURL(image));
+    const compressedImg = await compressImage(image);
+    setter(compressedImg);
   };
 
   const handleNext = (e) => {

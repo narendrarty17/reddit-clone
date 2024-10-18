@@ -11,7 +11,8 @@ import {
 import { createPortal } from "react-dom";
 import { GroupCreationContext } from "../context/GroupCreationContext";
 import trackingDots from "./GroupCreationPgs/modalUtils/TrackingDots";
-import { uploadImage } from "../services/uploadService";
+import { uploadGroupCreationData } from "../services/uploadService";
+import { Loading } from "./utils/Loading";
 
 const modalPages = [
   "GroupInfo",
@@ -25,15 +26,16 @@ const modalComponents = modalPages.reduce((components, page) => {
   return components;
 }, {});
 
-export default forwardRef(function GroupCreation({ onReset, updateList }, ref) {
+export default forwardRef(function GroupCreation({ updateList }, ref) {
   const dialog = useRef();
   const [currentPage, setCurrentPage] = useState("GroupInfo");
   const [communityData, setCommunityData] = useState({});
   const [readyToSubmit, setReadyToSubmit] = useState(false);
 
-  const addCommunityData = (data) => {
+  const addCommunityData = useCallback((data) => {
     setCommunityData((prevState) => ({ ...prevState, ...data }));
-  };
+  }, []);
+
   const resetCommunityData = () => {
     setCommunityData({});
   };
@@ -49,7 +51,6 @@ export default forwardRef(function GroupCreation({ onReset, updateList }, ref) {
   });
 
   const handleCancel = useCallback(() => {
-    console.log("Handle cancel...");
     if (dialog.current) {
       dialog.current.close();
     }
@@ -81,39 +82,19 @@ export default forwardRef(function GroupCreation({ onReset, updateList }, ref) {
     }
   };
 
-  const handleModalSubmit = useCallback(async (data) => {
-    try {
-      const bannerPath = await uploadImage(data.bannerImage, "banner");
-      const iconPath = await uploadImage(data.iconImage, "logo");
-
-      data.bannerImage = bannerPath;
-      data.iconImage = iconPath;
-
-      // Handle modal submit code here
-
-      const response = await fetch("http://localhost:5000/community", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        alert("Community data saved!");
-        updateList();
-      } else {
-        // Extract error message from the response
-        const errorData = await response.json();
-        const errorMessage =
-          errorData.message || "Failed to save community data";
-        alert(errorMessage);
+  const handleModalSubmit = useCallback(
+    async (data) => {
+      try {
+        const update = await uploadGroupCreationData(data);
+        if (update === true) {
+          updateList();
+        }
+      } catch (error) {
+        console.error("Error uploading data: ", error);
       }
-    } catch (error) {
-      // Handle network or other errors
-      alert("An error occurred while saving community data.");
-    }
-  }, []);
+    },
+    [updateList]
+  );
 
   const tracker = trackingDots(
     modalPages.length,
@@ -125,10 +106,13 @@ export default forwardRef(function GroupCreation({ onReset, updateList }, ref) {
 
   useEffect(() => {
     if (readyToSubmit) {
-      handleModalSubmit(communityData);
-      handleCancel();
+      // Run submission logic only once when readyToSubmit is true
+      handleModalSubmit(communityData).then(() => {
+        handleCancel(); // Reset modal after submission
+        setReadyToSubmit(false); // Ensure this does not trigger again
+      });
     }
-  }, [readyToSubmit, communityData, currentPage, handleCancel, handleModalSubmit]);
+  }, [readyToSubmit, communityData, handleModalSubmit, handleCancel]);
 
   return createPortal(
     <GroupCreationContext.Provider
@@ -145,7 +129,7 @@ export default forwardRef(function GroupCreation({ onReset, updateList }, ref) {
         className="absolute w-[100%] md:w-[700px] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 md:top-[20%] md:left-[25%] md:translate-x-0 md:translate-y-0
          bg-midDarkGray rounded-2xl p-4"
       >
-        <Suspense fallback={<div>Loading..</div>}>
+        <Suspense fallback={<Loading type="groupCreation" />}>
           {CurrentPageComponent ? (
             <CurrentPageComponent key={currentPage} />
           ) : (

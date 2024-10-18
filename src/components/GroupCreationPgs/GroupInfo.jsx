@@ -3,6 +3,7 @@ import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import GroupDetail from "./modalUtils/GroupDetail";
 import ModalButtons from "./modalUtils/ModalButtons";
+import { base64ToBlob } from "../../services/imageService";
 
 const title = "Tell us about your community";
 const description =
@@ -19,12 +20,12 @@ export default function GroupInfo() {
   });
   const [iconImageUrl] = useState(
     communityData.iconImage
-      ? URL.createObjectURL(communityData.iconImage)
+      ? URL.createObjectURL(base64ToBlob(communityData.iconImage))
       : null
   );
   const [bannerImageUrl] = useState(
     communityData.bannerImage
-      ? URL.createObjectURL(communityData.bannerImage)
+      ? URL.createObjectURL(base64ToBlob(communityData.bannerImage))
       : null
   );
 

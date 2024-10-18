@@ -1,11 +1,61 @@
 import defaultBanner from "../../assets/imgs/Global/defaultBanner.svg";
 import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
+import { useRef, useState, useEffect } from "react";
+
 import { Notification } from "../svgComponents/GroupHomeSvgs";
 
 export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const menuIconRef = useRef();
+  const menuRef = useRef();
+
+  const handleDeleteCommunity = async () => {
+    const url = `http://localhost:5000/community/${name}`;
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      if (response.ok) {
+        alert(`${name} has been successfully deleted`);
+        window.location.href = "http://localhost:3000"; // Redirect to home URL
+      } else {
+        alert(`Error in deleting ${name}`);
+      }
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  const toggleMenu = () => {
+    setMenuVisible((prev) => !prev);
+  };
+
+  // Function to handle clicks outside the menu
+  const handleClickOutside = (event) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      menuIconRef.current &&
+      !menuIconRef.current.contains(event.target)
+    ) {
+      setMenuVisible(false); // Close the menu if clicked outside
+    }
+  };
+
+  // Attach event listener to detect clicks outside the menu
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside); // Clean up the event
+    };
+  }, []);
+
   return (
-    <div className="w-[100%]">
+    <div className="w-[100%] flex flex-col">
       <section className="md:pl-4 md:pr-1 md:py-2 w-[100%]">
         <img
           className="w-full h-20 md:h-24 md:rounded-lg"
@@ -44,7 +94,11 @@ export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
             <div className="flex gap-2 px-3 py-2 items-center border-gray-400 border-[1px] rounded-3xl">
               <p className="text-md">Joined</p>
             </div>
-            <div className="flex gap-1 px-2 py-4 rounded-full border-[1px] border-gay-400">
+            <div
+              ref={menuIconRef}
+              onClick={toggleMenu}
+              className="flex gap-1 px-2 py-4 rounded-full border-[1px] border-gay-400"
+            >
               <div className="w-1 h-1 rounded-full bg-white"></div>
               <div className="w-1 h-1 rounded-full bg-white"></div>
               <div className="w-1 h-1 rounded-full bg-white"></div>
@@ -52,6 +106,35 @@ export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
           </div>
         </div>
       </section>
+      {/* Menu */}
+      {menuVisible && (
+        <div
+          ref={menuRef}
+          className="absolute self-end w-24 bg-gray-700 rounded-md shadow-lg z-50"
+          style={{
+            top: `${
+              menuIconRef.current?.getBoundingClientRect().bottom +
+              10 +
+              window.scrollY
+            }px`,
+            left: `${
+              menuIconRef.current?.getBoundingClientRect().right - 95
+            }px`, // Using a constant for clarity
+          }}
+          role="menu" // Adding role for accessibility
+          aria-hidden={!menuVisible} // Manage visibility for accessibility
+        >
+          <ul className="flex flex-col py-2">
+            <li
+              onClick={handleDeleteCommunity} // Use a function for clarity
+              className="px-4 py-1 hover:bg-gray-600 cursor-pointer"
+              role="menuitem" // Adding role for accessibility
+            >
+              Delete
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

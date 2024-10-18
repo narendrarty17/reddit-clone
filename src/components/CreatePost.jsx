@@ -3,6 +3,8 @@ import { uploadPost } from "../services/uploadService";
 import CreatePostHead from "./CreatePostUtils/CreatePostHead";
 import CreatePostInput from "./CreatePostUtils/CreatePostInput";
 import defaultLogo from "../assets/imgs/Global/defaultLogo.svg";
+import { createPortal } from "react-dom";
+import { Loading } from "./utils/Loading";
 
 export default function CreatePost({
   name = "test group",
@@ -24,7 +26,7 @@ export default function CreatePost({
       console.log("Post data before sending to server: ", postData);
       if (!postData || isSubmitting) return; // Prevent multiple submissions
 
-      setIsSubmitting(true); // Set flag to true to prevent duplicate
+      setIsSubmitting(true); // Set flag to true to prevent duplicate submissions
 
       if (postData) {
         try {
@@ -47,10 +49,21 @@ export default function CreatePost({
     return <div className="text-white">Submitting your post...</div>;
   }
 
-  return (
-    <div className="flex flex-col gap-8 box-content max-w-[600px] px-10 py-8">
-      <CreatePostHead name={name} logo={logo} />
-      <CreatePostInput handlePostData={handlePostData} />
-    </div>
+  return createPortal(
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 px-4 z-10">
+      <div className="flex flex-col gap-8 bg-white bg-opacity-10 rounded-2xl shadow-lg max-w-xl w-full px-6 py-6">
+        {" "}
+        {/* Added border and bg-opacity */}
+        {isSubmitting ? (
+          <Loading type="submitPost" text="Submitting your post..." />
+        ) : (
+          <div>
+            <CreatePostHead name={name} logo={logo} close={goToGroupHome} />
+            <CreatePostInput handlePostData={handlePostData} />
+          </div>
+        )}
+      </div>
+    </div>,
+    document.getElementById("modal")
   );
 }

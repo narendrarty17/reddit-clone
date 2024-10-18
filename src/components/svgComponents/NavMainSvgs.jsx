@@ -75,7 +75,7 @@ function Explore() {
       </style>
       <g>
         <path
-          class="hatch_twee"
+          className="hatch_twee"
           d="M29.279,12.014c0.118,0.361,0.219,0.732,0.31,1.104l-2.164,2.164c-0.285-0.266-0.491-0.521-0.583-0.831
 		L29.279,12.014z M15.871,30.839l7.168-7.171c-0.052-0.041-0.095-0.085-0.147-0.131c-0.173-0.153-0.362-0.312-0.626-0.51
 		l-5.571,5.571c0.057,0.134,0.102,0.286,0.078,0.433c-0.063,0.386-0.275,0.733-0.314,0.812
@@ -98,7 +98,7 @@ function Explore() {
 		c0.087,0.086,0.23,0.148,0.4,0.196l1.24-1.24c-0.251-0.222-0.513-0.431-0.779-0.635L23.099,6.194z"
         />
         <path
-          class="hatch_een"
+          className="hatch_een"
           d="M31,16.5C31,7.94,24.06,1,15.5,1S0,7.94,0,16.5S6.94,32,15.5,32C24.194,32,31,24.924,31,16.5z
 		 M29.621,17.644c-0.399-0.541-1.024-1.42-1.51-1.796c-0.782-0.606-1.265-1.013-1.323-1.696c-0.092-1.078,1.34-2.135,2.301-2.662
 		C29.668,13.054,30,14.737,30,16.5c0,0.541-0.035,1.073-0.093,1.598C29.79,17.905,29.668,17.708,29.621,17.644z M26.362,6.927
@@ -152,44 +152,44 @@ function Home() {
       <path
         d="M22 22L2 22"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M2 11L6.06296 7.74968M22 11L13.8741 4.49931C12.7784 3.62279 11.2216 3.62279 10.1259 4.49931L9.34398 5.12486"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M15.5 5.5V3.5C15.5 3.22386 15.7239 3 16 3H18.5C18.7761 3 19 3.22386 19 3.5V8.5"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M4 22V9.5"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M20 9.5V13.5M20 22V17.5"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M15 22V17C15 15.5858 15 14.8787 14.5607 14.4393C14.1213 14 13.4142 14 12 14C10.5858 14 9.87868 14 9.43934 14.4393M9 22V17"
         stroke="#a5b9c1"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 9.5C14 10.6046 13.1046 11.5 12 11.5C10.8954 11.5 10 10.6046 10 9.5C10 8.39543 10.8954 7.5 12 7.5C13.1046 7.5 14 8.39543 14 9.5Z"
         stroke="#a5b9c1"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </svg>
   );
@@ -207,9 +207,9 @@ function Popular() {
       <path
         d="M22 7L14.1314 14.8686C13.7354 15.2646 13.5373 15.4627 13.309 15.5368C13.1082 15.6021 12.8918 15.6021 12.691 15.5368C12.4627 15.4627 12.2646 15.2646 11.8686 14.8686L9.13137 12.1314C8.73535 11.7354 8.53735 11.5373 8.30902 11.4632C8.10817 11.3979 7.89183 11.3979 7.69098 11.4632C7.46265 11.5373 7.26465 11.7354 6.86863 12.1314L2 17M22 7H15M22 7V14"
         stroke="#a5b9c1"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

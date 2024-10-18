@@ -1,12 +1,18 @@
 import Post from "../utils/Post";
 import { useEffect, useState } from "react";
 
+import { Loading } from "../utils/Loading";
+
 export default function GroupPosts({ name }) {
   const [postsData, setPostsData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
-  console.log("Group posts name of community: ", name);
+  const [deleteCount, setDeleteCount] = useState(0);
+
+  const updateDeleteCount = () => {
+    setDeleteCount((prev) => prev + 1);
+  };
 
   const nextPg = () => {
     if (postsData?.totalPages > page) {
@@ -31,8 +37,7 @@ export default function GroupPosts({ name }) {
           throw new Error("Network response was not ok");
         }
 
-        const data = await response.json(); // Convert response to JSON
-        console.log("Fetched data: ", data);
+        const data = await response.json();
         setPostsData(data);
       } catch (error) {
         console.error("Error message: ", error);
@@ -43,14 +48,14 @@ export default function GroupPosts({ name }) {
     };
 
     getData();
-  }, [name, page]);
+  }, [name, page, deleteCount]);
 
   if (error) {
     return <div>Error occurred: {error.message}</div>;
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading type="posts" />;
   }
 
   return (
@@ -59,7 +64,13 @@ export default function GroupPosts({ name }) {
       <div className="flex flex-col ">
         {postsData?.posts?.length > 0 ? (
           postsData.posts.map((post) => {
-            return <Post key={post._id} post={post} />;
+            return (
+              <Post
+                key={post._id}
+                post={post}
+                updateDeleteCount={updateDeleteCount}
+              />
+            );
           })
         ) : (
           <div>No posts available.</div> // Handle no posts case

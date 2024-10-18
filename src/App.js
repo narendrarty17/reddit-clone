@@ -3,7 +3,6 @@ import Header from './components/utils/Header';
 import Nav from './components/Nav';
 import GroupHome from './components/GroupHome';
 import Home from './components/Home';
-import CropImage from './components/CropImage';
 
 function App() {
   return (

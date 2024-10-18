@@ -17,11 +17,11 @@ function CreationAndVisibility() {
           <g
             id="Page-1"
             stroke="none"
-            stroke-width="1"
+            strokeWidth="1"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           >
-            <g id="create-plant" fill={color} fill-rule="nonzero">
+            <g id="create-plant" fill={color} fillRule="nonzero">
               <g id="drop" transform="translate(64.000000, 64.000000)">
                 <path
                   d="M345.333333,144 L410.666667,209.333333 L257.333333,362.666667 L192,362.666667 L192,297.333333 L345.333333,144 Z M320,1.42108547e-14 L320,139.162 L245.829,213.333 L42.6666667,213.333333 L42.6666667,298.666667 L106.666,298.666 L106.666,341.333 L1.27897692e-13,341.333333 L1.27897692e-13,96 L128,170.666667 L128,96 L256,170.666667 L256,1.42108547e-14 L320,1.42108547e-14 Z M303.971,230.599 L224,310.570667 L224,330.666667 L244.053333,330.666667 L324.046,250.673 L303.971,230.599 Z M345.322667,189.248 L326.599,207.971 L346.673,228.046 L365.397333,209.322667 L345.322667,189.248 Z"
@@ -40,7 +40,7 @@ function CreationAndVisibility() {
           height="20px"
           viewBox="0 0 512 512"
           id="Layer_1"
-          enable-background="new 0 0 512 512"
+          enableBackground="new 0 0 512 512"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g>
@@ -66,9 +66,9 @@ const RulesArrow = function ({ direction }) {
         <path
           d="M7 10L12 15L17 10"
           stroke="#a5b9c1"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -85,9 +85,9 @@ const RulesArrow = function ({ direction }) {
         <path
           d="M7 10L12 15L17 10"
           stroke="#a5b9c1"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );

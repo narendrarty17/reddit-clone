@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ImageCropper from "./CropUtils/ImageCropper";
 import "react-image-crop/dist/ReactCrop.css";
 import { Image } from "../components/svgComponents/GroupCreationSvgs";
@@ -6,11 +6,6 @@ import { Close } from "../components/svgComponents/GroupCreationSvgs";
 
 function CropImage({ type, updateImage }) {
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
-  const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    console.log("Image is: ", image);
-  }, [image]);
 
   const openCropModal = () => setIsCropModalOpen(true);
   const closeCropModal = () => setIsCropModalOpen(false);

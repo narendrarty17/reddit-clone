@@ -11,4 +11,7 @@ router.get('/', communityController.getAllCommunities);
 // Route to receive community data
 router.post('/', communityController.createCommunity);
 
+// Router to delete the commnity
+router.delete('/:communityName', communityController.deleteCommunity);
+
 module.exports = router;

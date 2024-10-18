@@ -1,11 +1,11 @@
 import { Create } from "../../svgComponents/GloalSvgs";
 
-export default function CreateBtn({ createItem, onClick }) {
+export default function CreateBtn({ createItem, handleClick }) {
   return (
     <button
       className="flex items-center gap-6 px-2 py-2 w-[95%]
         rounded-xl justify-between focus:bg-midGray hover:bg-midDarkGray"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="flex items-center gap-4 w-auto">
         <Create />

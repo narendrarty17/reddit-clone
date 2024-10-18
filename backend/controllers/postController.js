@@ -1,5 +1,6 @@
 // controllers/postController.js
 const PostSchema = require('../models/PostSchema');
+const cloudinary = require('../config/cloudinary.js');
 
 // Controller function to create a new post
 const createPost = async (req, res) => {
@@ -75,4 +76,35 @@ const getAllPosts = async (req, res) => {
     }
 };
 
-module.exports = { createPost, getPostById, getAllPosts };
+// Delete a post by ID
+const deletePost = async (req, res) => {
+    try {
+        const postId = req.params.id; // Get post ID from request parameters
+
+        // Find the post
+        const post = await PostSchema.findById(postId);
+        if (!post) {
+            return res.status(400).json({ message: 'Post not found' });
+        }
+
+        const imageUrl = post.content.type === 'image' ? post.content.value : null;
+
+        // Delete the post from database
+        await PostSchema.findByIdAndDelete(postId);
+
+        if (imageUrl) {
+            // Extract the cloudinary image public Id
+            const publicId = imageUrl.split('/').pop().split('.')[0]; // Extracting public id
+
+            // Delete image from cloudinary
+            await cloudinary.uploader.destroy(publicId);
+        }
+
+        res.status(200).json({ message: 'Post and image has been successfully deleted' });
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        res.status(500).json({ message: 'Error deleting post' });
+    }
+};
+
+module.exports = { createPost, getPostById, getAllPosts, deletePost };

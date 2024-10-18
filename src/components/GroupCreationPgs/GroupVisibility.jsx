@@ -56,7 +56,6 @@ export default function GrouopVisibility() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handle submit inside CommunityVisibility");
     addCommunityData({ visibility, isMature });
     submitPage();
   };
@@ -86,6 +85,9 @@ export default function GrouopVisibility() {
           type="checkbox"
           readOnly
           checked={visibility === category.type}
+          onChange={() => {
+            handleCategorySelection(category.type);
+          }}
         />
       </button>
     );
@@ -112,6 +114,7 @@ export default function GrouopVisibility() {
           className="appearance-none w-5 h-5 border-2 border-gray-500 rounded-full checked:bg-lightGray cursor-pointer"
           type="checkbox"
           checked={isMature}
+          onChange={() => {}}
         />
       </button>
 

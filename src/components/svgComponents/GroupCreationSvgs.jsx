@@ -1,9 +1,11 @@
 const width = "27px";
 const height = "27px";
 
-function Close() {
+function Close({ handleClose }) {
   return (
     <svg
+      onClick={handleClose}
+      className="cursor-pointer"
       width={width}
       height={height}
       viewBox="0 0 32 32"
@@ -15,9 +17,9 @@ function Close() {
       <g
         id="Page-1"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Icon-Set"
@@ -41,7 +43,7 @@ function Delete() {
       height={height}
       viewBox="0 0 1024 1024"
       fill="#ffffff"
-      class="icon"
+      className="icon"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -68,7 +70,7 @@ function Image() {
     >
       <path
         d="M1920 113v1694.118H0V113h1920Zm-112.941 112.941H112.94V1694.29h1694.12V225.941ZM935.944 1058.77c182.851-258.409 332.498-286.87 426.691-264.847 160.716 37.384 272.076 242.26 330.805 608.98l10.504 65.392H207.924l20.104-71.718c85.384-306.07 172.913-457.072 283.37-489.712 102.55-30.156 185.336 43.82 258.86 109.1 43.596 38.514 90.806 81.092 122.542 78.834 15.925-1.807 32.188-20.556 43.144-36.029Zm401.167-154.842c-83.012-19.313-196.066 60.762-308.895 220.01-35.237 49.807-76.348 77.816-122.315 83.124-76.226 9.024-138.182-42.827-198.812-96.266l-3.868-3.413c-2.578-2.276-5.154-4.552-7.73-6.824-54.211-48.113-110.682-97.017-152.018-85.384-34.447 10.165-102.325 69.12-185.788 340.179h1212.762c-50.485-265.186-134.4-428.386-233.336-451.426ZM677.647 338.882c124.574 0 225.882 101.309 225.882 225.883 0 124.574-101.308 225.882-225.882 225.882S451.765 689.34 451.765 564.765s101.308-225.883 225.882-225.883Zm0 112.942c-62.343 0-112.941 50.71-112.941 112.94 0 62.231 50.598 112.942 112.941 112.942 62.344 0 112.941-50.71 112.941-112.941 0-62.23-50.597-112.941-112.94-112.941Z"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );
@@ -90,8 +92,8 @@ function Mature() {
             .cls-1 {
               fill: none; /* Change to fill: #ffffff; if you want a filled shape */
               stroke: #ffffff; /* Keep stroke if needed */
-              stroke-miterlimit: 10;
-              stroke-width: 1.91px;
+              strokeMiterlimit: 10;
+              strokeWidth: 1.91px;
             }
           `}
         </style>
@@ -134,14 +136,14 @@ function Private() {
       <path
         d="M2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.75736 10 5.17157 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16Z"
         stroke="#ffffff"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
-      <circle cx="12" cy="16" r="2" stroke="#ffffff" stroke-width="1.5" />
+      <circle cx="12" cy="16" r="2" stroke="#ffffff" strokeWidth="1.5" />
       <path
         d="M6 10V8C6 4.68629 8.68629 2 12 2C15.3137 2 18 4.68629 18 8V10"
         stroke="#ffffff"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -155,7 +157,7 @@ function Public() {
       height={height}
       viewBox="0 0 512 512"
       id="Layer_1"
-      enable-background="new 0 0 512 512"
+      enableBackground="new 0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g>

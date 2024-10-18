@@ -4,9 +4,18 @@ import avatar from "../../assets/imgs/avatar.png";
 import { ChatIcon, Notification } from "../svgComponents/HeaderSvgs";
 import { Create } from "../svgComponents/GloalSvgs";
 
-import SearchBar from "./SearchBar";
+import { Button } from "./Button";
 
+import SearchBar from "./SearchBar";
+import Login from "../Login";
+import { useCallback, useState } from "react";
 export default function Header() {
+  const [closeModal, setCloseModal] = useState();
+
+  const toggleModal = useCallback(() => {
+    setCloseModal((prev) => !prev);
+  }, []);
+
   return (
     <header className="flex p-3 w-[100%] justify-between items-center box-border border-b-[1px] border-midGray">
       {/* Left section */}
@@ -38,7 +47,9 @@ export default function Header() {
           src={avatar}
           alt="create icon"
         />
+        <Button handleClick={toggleModal} />
       </div>
+      {closeModal && <Login handleClose={toggleModal} />}
     </header>
   );
 }
