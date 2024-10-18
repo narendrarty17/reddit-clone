@@ -1,4 +1,4 @@
-import { Close } from "../components/svgComponents/GloalSvgs";
+import { Close } from "./utils/svgComponents/GloalSvgs";
 import { auth, provider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useEffect, useState } from "react";

@@ -1,5 +1,5 @@
 import avatar from "../../assets/imgs/avatar.png";
-import { UpDownVote, Comment, Badge, Share } from "../svgComponents/PostSvgs";
+import { UpDownVote, Comment, Badge, Share } from "./svgComponents/PostSvgs";
 import { useState, useEffect, useRef } from "react";
 
 export default function Post({ post, updateDeleteCount }) {

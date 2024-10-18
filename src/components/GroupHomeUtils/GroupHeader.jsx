@@ -3,7 +3,7 @@ import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
 import { useRef, useState, useEffect } from "react";
 
-import { Notification } from "../svgComponents/GroupHomeSvgs";
+import { Notification } from "../utils/svgComponents/GroupHomeSvgs";
 
 export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
   const [menuVisible, setMenuVisible] = useState(false);

@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Home, Popular, Explore, All } from "../svgComponents/NavMainSvgs";
+import {
+  Home,
+  Popular,
+  Explore,
+  All,
+} from "../utils/svgComponents/NavMainSvgs";
 
 const mainList = ["Home", "Popular", "Explore", "All"];
 

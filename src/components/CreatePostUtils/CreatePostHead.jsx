@@ -1,5 +1,5 @@
 import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
-import { Close } from "../svgComponents/GroupCreationSvgs";
+import { Close } from "../utils/svgComponents/GroupCreationSvgs";
 
 export default function CreatePostHead({ name, logo, close }) {
   const groupName = name || "Group Name";

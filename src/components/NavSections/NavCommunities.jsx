@@ -3,7 +3,7 @@ import GroupCreation from "../GroupCreation";
 import NavBtn from "./NavUtils/NavBtn";
 import { Loading } from "../utils/Loading";
 
-import { UpArrow, DownArrow } from "../svgComponents/NavCommunitySvgs";
+import { UpArrow, DownArrow } from "../utils/svgComponents/NavCommunitySvgs";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 

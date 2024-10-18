@@ -1,4 +1,4 @@
-import { Create } from "../../svgComponents/GloalSvgs";
+import { Create } from "../../utils/svgComponents/GloalSvgs";
 
 export default function CreateBtn({ createItem, handleClick }) {
   return (

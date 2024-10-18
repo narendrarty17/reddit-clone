@@ -1,8 +1,8 @@
 import redditLogo from "../assets/imgs/Header/reddit.svg";
 import avatar from "../assets/imgs/avatar.png";
 
-import { ChatIcon, Notification } from "./svgComponents/HeaderSvgs";
-import { Create } from "./svgComponents/GloalSvgs";
+import { ChatIcon, Notification } from "./utils/svgComponents/HeaderSvgs";
+import { Create } from "./utils/svgComponents/GloalSvgs";
 import { Button } from "./utils/Button";
 import SearchBar from "./utils/SearchBar";
 import Login from "./Login";

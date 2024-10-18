@@ -1,4 +1,4 @@
-import { Search } from "../svgComponents/GloalSvgs";
+import { Search } from "./svgComponents/GloalSvgs";
 export default function SearchBar({ placeholder }) {
   return (
     <div className="relative">

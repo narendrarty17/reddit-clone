@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Star } from "../../svgComponents/NavBtnSvgs";
+import { Star } from "../../utils/svgComponents/NavBtnSvgs";
 
 export default function NavButton({ iconName, icon, favIcon }) {
   const [favSelected, setFavSelected] = useState(false);
