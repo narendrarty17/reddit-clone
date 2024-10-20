@@ -6,6 +6,8 @@ import defaultLogo from "../assets/imgs/Global/defaultLogo.svg";
 import { createPortal } from "react-dom";
 import { Loading } from "./utils/Loading";
 
+import { useSelector } from "react-redux";
+
 export default function CreatePost({
   name = "test group",
   logo = defaultLogo,
@@ -13,11 +15,13 @@ export default function CreatePost({
 }) {
   const [postData, setPostData] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false); // State to track submission
+  const googleId = useSelector((state) => state.auth.googleId);
 
   const handlePostData = async (data) => {
     setPostData({
       ...data,
       communityName: name,
+      googleId,
     });
   };
 

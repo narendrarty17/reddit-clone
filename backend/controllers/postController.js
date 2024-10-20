@@ -4,9 +4,9 @@ const cloudinary = require('../config/cloudinary.js');
 
 // Controller function to create a new post
 const createPost = async (req, res) => {
-    const { communityName, title, content } = req.body;
+    const { communityName, title, content, googleId } = req.body;
 
-    if (!communityName || !title || !content) {
+    if (!communityName || !title || !content || !googleId) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -15,6 +15,7 @@ const createPost = async (req, res) => {
             communityName,
             title,
             content,
+            googleId
         });
 
         await newPost.save();

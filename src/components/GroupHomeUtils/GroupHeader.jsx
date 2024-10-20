@@ -1,6 +1,8 @@
 import defaultBanner from "../../assets/imgs/Global/defaultBanner.svg";
 import defaultLogo from "../../assets/imgs/Global/defaultLogo.svg";
 
+import { useSelector } from "react-redux";
+
 import { useRef, useState, useEffect } from "react";
 
 import { Notification } from "../utils/svgComponents/GroupHomeSvgs";
@@ -9,6 +11,8 @@ export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuIconRef = useRef();
   const menuRef = useRef();
+
+  const googleId = useSelector((state) => state.auth.googleId);
 
   const handleDeleteCommunity = async () => {
     const url = `http://localhost:5000/community/${name}`;
@@ -81,16 +85,20 @@ export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
             </div>
           </div>
           <div className="flex items-center gap-4 text-white">
-            <button
-              onClick={handleCreatePost}
-              className="flex gap-2 px-2 py-1 items-center border-gray-400 border-[1px] rounded-3xl"
-            >
-              <span className="text-2xl">+</span>
-              <p className="text-md">Create Post</p>
-            </button>
-            <div className="flex items-center justify-center border-[1px] border-gray-400 rounded-full p-2">
-              <Notification />
-            </div>
+            {googleId && (
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleCreatePost}
+                  className="flex gap-2 px-2 py-1 items-center border-gray-400 border-[1px] rounded-3xl"
+                >
+                  <span className="text-2xl">+</span>
+                  <p className="text-md">Create Post</p>
+                </button>
+                <div className="flex items-center justify-center border-[1px] border-gray-400 rounded-full p-2">
+                  <Notification />
+                </div>
+              </div>
+            )}
             <div className="flex gap-2 px-3 py-2 items-center border-gray-400 border-[1px] rounded-3xl">
               <p className="text-md">Joined</p>
             </div>

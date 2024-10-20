@@ -15,15 +15,13 @@ const Login = ({ handleClose }) => {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const { displayName, email, photoURL, emailVerified, phoneNumber } =
-        result.user;
+      const { uid: googleId, displayName: name, email, photoURL } = result.user;
 
       const user = {
-        displayName,
+        googleId,
+        name,
         email,
         photoURL,
-        emailVerified,
-        phoneNumber,
       };
 
       dispatch(authActions.login(user));

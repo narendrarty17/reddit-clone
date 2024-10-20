@@ -4,6 +4,7 @@ import { Close } from "../utils/svgComponents/GroupCreationSvgs";
 export default function CreatePostHead({ name, logo, close }) {
   const groupName = name || "Group Name";
   const groupLogo = logo || defaultLogo;
+
   return (
     <section className="flex flex-col gap-4 mb-4">
       <div className="flex justify-between">
