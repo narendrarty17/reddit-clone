@@ -10,6 +10,16 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    upvote: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    downvote: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
     content: {
         type: {
             type: String,
@@ -21,6 +31,10 @@ const postSchema = new mongoose.Schema({
             required: true,
         },
     },
+    googleId: {
+        type: String,
+        required: true
+    }
 }, { timestamps: true });
 
 const PostSchema = mongoose.model('Post', postSchema);

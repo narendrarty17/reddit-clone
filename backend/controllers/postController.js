@@ -138,4 +138,47 @@ const updateVoteCount = async (req, res) => {
     }
 }
 
-module.exports = { createPost, getPostById, getAllPosts, deletePost, updateVoteCount };
+const getPostsByGoogleId = async (req, res) => {
+    try {
+        const { googleId } = req.body; // Extract userEmail from the request body
+        console.log("Received user email in the server: ", googleId);
+        const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+        const limit = 10; // Limit to 10 posts per page
+        const skip = (page - 1) * limit; // Calculate how many posts to skip based on the page
+
+        // Validate if userEmail is provided in the request body
+        if (!getPostsByGoogleId) {
+            return res.status(400).json({ message: 'userEmail is required' });
+        }
+
+        // Fetch the total number of posts for the user
+        const totalPosts = await PostSchema.countDocuments({ googleId });
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalPosts / limit);
+
+        // Fetch posts associated with the userEmail with pagination
+        const posts = await PostSchema.find({ googleId })
+            .sort({ createdAt: -1 }) // Sort by newest first
+            .skip(skip) // Skip the calculated number of posts
+            .limit(limit); // Limit the number of posts
+
+        // If no posts are found, return a 404 response
+        if (!posts || posts.length === 0) {
+            return res.status(404).json({ message: 'No posts found for this user.' });
+        }
+
+        // Send the paginated posts and pagination details in the response
+        res.status(200).json({
+            posts,
+            currentPage: page,
+            totalPages,
+            totalPosts,
+        });
+    } catch (error) {
+        console.error("Error occurred while fetching user posts: ", error);
+        res.status(500).json({ message: 'Error fetching user posts' });
+    }
+};
+
+module.exports = { createPost, getPostById, getAllPosts, deletePost, updateVoteCount, getPostsByGoogleId };

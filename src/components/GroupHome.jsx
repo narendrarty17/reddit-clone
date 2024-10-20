@@ -53,6 +53,7 @@ export default function GroupHome() {
         <div className="flex flex-col w-full gap-10">
           <GroupHeader
             name={groupDetails.name}
+            googleId={groupDetails.googleId}
             logo={groupDetails.iconImage}
             banner={groupDetails.bannerImage}
             handleCreatePost={toggleCreatePost}

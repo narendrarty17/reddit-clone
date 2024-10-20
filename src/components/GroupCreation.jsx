@@ -14,6 +14,8 @@ import trackingDots from "./GroupCreationPgs/modalUtils/TrackingDots";
 import { uploadGroupCreationData } from "../services/uploadService";
 import { Loading } from "./utils/Loading";
 
+import { useSelector } from "react-redux";
+
 const modalPages = [
   "GroupInfo",
   "GroupImgs",
@@ -31,6 +33,8 @@ export default forwardRef(function GroupCreation({ updateList }, ref) {
   const [currentPage, setCurrentPage] = useState("GroupInfo");
   const [communityData, setCommunityData] = useState({});
   const [readyToSubmit, setReadyToSubmit] = useState(false);
+
+  const googleId = useSelector((state) => state.auth.googleId);
 
   const addCommunityData = useCallback((data) => {
     setCommunityData((prevState) => ({ ...prevState, ...data }));
@@ -64,6 +68,9 @@ export default forwardRef(function GroupCreation({ updateList }, ref) {
       const i = modalPages.indexOf(prevPage) + 1;
 
       if (i === modalPages.length) {
+        setCommunityData((prev) => {
+          return { ...prev, googleId };
+        });
         setReadyToSubmit(true);
         return prevPage; // No more pages, stay on the current one
       }

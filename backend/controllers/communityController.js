@@ -57,9 +57,9 @@ exports.getAllCommunities = async (req, res) => {
 };
 
 exports.createCommunity = async (req, res) => {
-    const { name, description, bannerImage, iconImage, selectedTopics, isMature, visibility } = req.body;
+    const { name, description, bannerImage, iconImage, selectedTopics, isMature, visibility, googleId } = req.body;
 
-    if (!name || !description || !bannerImage || !iconImage || !selectedTopics || visibility === undefined) {
+    if (!name || !description || !bannerImage || !iconImage || !selectedTopics || visibility === undefined || !googleId) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -71,6 +71,7 @@ exports.createCommunity = async (req, res) => {
         selectedTopics,
         isMature: isMature || false,
         visibility,
+        googleId,
         date: new Date().toISOString(),
     };
 

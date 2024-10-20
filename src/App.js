@@ -10,9 +10,9 @@ function App() {
       <Header />
       <div className='flex w-[100%]'>
         <Nav />
-        <div className="flex-grow">
+        <div className='flex-grow'>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/groupHome/:groupName" element={<GroupHome name="Dry Eye" />} />
           </Routes>
         </div>

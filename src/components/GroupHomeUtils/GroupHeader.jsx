@@ -7,12 +7,19 @@ import { useRef, useState, useEffect } from "react";
 
 import { Notification } from "../utils/svgComponents/GroupHomeSvgs";
 
-export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
+export default function GroupHeader({
+  name,
+  logo,
+  banner,
+  handleCreatePost,
+  googleId,
+}) {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuIconRef = useRef();
   const menuRef = useRef();
 
-  const googleId = useSelector((state) => state.auth.googleId);
+  const loggedGoogleId = useSelector((state) => state.auth.googleId);
+  const isAuthorized = loggedGoogleId === googleId;
 
   const handleDeleteCommunity = async () => {
     const url = `http://localhost:5000/community/${name}`;
@@ -133,13 +140,15 @@ export default function GroupHeader({ name, logo, banner, handleCreatePost }) {
           aria-hidden={!menuVisible} // Manage visibility for accessibility
         >
           <ul className="flex flex-col py-2">
-            <li
-              onClick={handleDeleteCommunity} // Use a function for clarity
-              className="px-4 py-1 hover:bg-gray-600 cursor-pointer"
-              role="menuitem" // Adding role for accessibility
-            >
-              Delete
-            </li>
+            {isAuthorized && (
+              <li
+                onClick={handleDeleteCommunity} // Use a function for clarity
+                className="px-4 py-1 hover:bg-gray-600 cursor-pointer"
+                role="menuitem" // Adding role for accessibility
+              >
+                Delete
+              </li>
+            )}
           </ul>
         </div>
       )}

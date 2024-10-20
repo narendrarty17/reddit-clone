@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const color = "#ffffff";
 const hoverColor = "#f87171";
 
-function UpDownVote({
-  count = 44,
-  handleClickUp = () => {},
-  handleClickDown = () => {},
-}) {
+function UpDownVote({ updateVote, count = 0 }) {
   const [hoveredFirst, setHoveredFirst] = useState(false);
   const [hoveredSecond, setHoveredSecond] = useState(false);
+
+  const [currentVote, setCurrentVote] = useState(""); // Track if user has upvoted or downvoted
+
+  const handleClickUp = async () => {
+    if (currentVote === "upvote") {
+      // Cancel upvote if it's already applied
+      setCurrentVote("");
+      await updateVote("upvote", "decrease");
+    } else {
+      // Apply upvote, cancel downvote if it was previously applied
+      setCurrentVote("upvote");
+      if (currentVote === "downvote") {
+        await updateVote("downvote", "decrease"); // Cancel downvote
+      }
+      await updateVote("upvote", "increase");
+    }
+  };
+
+  const handleClickDown = async () => {
+    if (currentVote === "downvote") {
+      // Cancel downvote if it's already applied
+      setCurrentVote("");
+      await updateVote("downvote", "decrease");
+    } else {
+      // Apply downvote, cancel upvote if it was previously applied
+      setCurrentVote("downvote");
+      if (currentVote === "upvote") {
+        await updateVote("upvote", "decrease"); // Cancel upvote
+      }
+      await updateVote("downvote", "increase");
+    }
+  };
 
   return (
     <button className="flex gap-2 items-center bg-midGray px-3 text-white py-2 rounded-3xl">

@@ -8,7 +8,8 @@ const communitySchema = new mongoose.Schema({
     selectedTopics: { type: [String], required: true },
     isMature: { type: Boolean, default: false },
     visibility: { type: String, enum: ['Public', 'Private'], required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    googleId: { type: String, required: true }
 });
 
 const CommunitySchema = mongoose.model('community', communitySchema);

@@ -16,9 +16,11 @@ const auth = createSlice({
             state.name = action.payload.name;
             state.email = action.payload.email;
             state.photoURL = action.payload.photoURL;
+            localStorage.setItem('auth', JSON.stringify(state));
         },
         logout(state) {
             // Clear state on logout
+            localStorage.removeItem('auth');
             return initialAuthState;
         }
     }

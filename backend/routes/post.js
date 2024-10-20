@@ -1,7 +1,17 @@
 // routes/posts.js
 const express = require('express');
 const router = express.Router();
-const { createPost, getPostById, getAllPosts, deletePost, updateVoteCount } = require('../controllers/postController');
+const {
+    createPost,
+    getPostById,
+    getAllPosts,
+    deletePost,
+    updateVoteCount,
+    getPostsByGoogleId
+} = require('../controllers/postController');
+
+// Route to get all posts by googleId
+router.post('/user', getPostsByGoogleId);
 
 // Route to create a new post
 router.post('/', createPost);

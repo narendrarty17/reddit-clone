@@ -8,51 +8,54 @@ export default function Post({ post, updateDeleteCount }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef(null); // Reference to the menu
   const dotsRef = useRef(null); // Reference to the dots
-  const loggedUserEmail = useSelector((state) => state.auth.email);
-  const isAuthorized = post.userEmail === loggedUserEmail;
+  const loggedUserGoogleId = useSelector((state) => state.auth.googleId);
+  const isAuthorized = post.googleId === loggedUserGoogleId;
 
-  const updateVote = useCallback(
-    async (type, action) => {
-      const updatedPost = await handleVote(post._id, type, action);
-      if (updatedPost) {
-        setPostData(updatedPost);
-      }
-    },
-    [post._id]
-  );
+  // const updateVote = useCallback(
+  //   async (type, action) => {
+  //     const updatedPost = await handleVote(post._id, type, action);
+  //     if (updatedPost) {
+  //       setPostData(updatedPost);
+  //     }
+  //   },
+  //   [post._id]
+  // );
 
   useEffect(() => {
     console.log("Incoming post data: ", post); // Debug log
     setPostData(post);
   }, [post]);
 
+  console.log("upvote: ", post.upvote);
+  console.log("downvote: ", post.downvote);
+
   const toggleMenu = () => {
     // Only toggle the menu if it wan't closed by an outside click
     setMenuVisible((prev) => !prev);
   };
 
-  const handleVote = async (postId, type, action) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/post/${postId}/vote?type=${type}&action=${action}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        console.log("Error in updating the vote count");
-        return false;
-      }
-      const updatedPost = await response.json();
-      return updatedPost;
-    } catch (error) {
-      console.error("Error occurred: ", error);
-      return false;
-    }
-  };
+  // const handleVote = async (postId, type, action) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:5000/post/${postId}/vote?type=${type}&action=${action}`,
+  //       {
+  //         method: "PATCH",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) {
+  //       console.log("Error in updating the vote count");
+  //       return false;
+  //     }
+  //     const updatedPost = await response.json();
+  //     return updatedPost;
+  //   } catch (error) {
+  //     console.error("Error occurred: ", error);
+  //     return false;
+  //   }
+  // };
 
   // Function to handle clicks outside the menu
   const handleClickOutside = (event) => {
@@ -139,10 +142,10 @@ export default function Post({ post, updateDeleteCount }) {
           </a>
         )}
         <section className="flex gap-3">
-          <UpDownVote
+          {/* <UpDownVote
             updateVote={updateVote}
             count={postData.upvote - postData.downvote}
-          />
+          /> */}
           <Comment count="11" />
           <Badge />
           <Share />
