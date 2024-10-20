@@ -107,4 +107,34 @@ const deletePost = async (req, res) => {
     }
 };
 
-module.exports = { createPost, getPostById, getAllPosts, deletePost };
+// Update vote count
+const updateVoteCount = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { type, action } = req.query;
+
+        let updateQuery;
+
+        if (type === 'upvote') {
+            updateQuery = action === 'increase' ? { $inc: { upvote: 1 } } : { $inc: { upvote: -1 } };
+        } else if (type === 'downvote') {
+            updateQuery = action === 'increase' ? { inc: { downvote: 1 } } : { $inc: { downvote: -1 } };
+        }
+
+        const post = await PostSchema.findByIdAndUpdate(
+            id,
+            updateQuery,
+            { new: true }
+        );
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        res.status(200).json(post)
+
+    } catch (error) {
+        console.error("Error occured while updating the vote count: ", error);
+        res.status(500).json({ message: "Error occured while updating the vote count" });
+    }
+}
+
+module.exports = { createPost, getPostById, getAllPosts, deletePost, updateVoteCount };

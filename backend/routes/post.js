@@ -1,7 +1,7 @@
 // routes/posts.js
 const express = require('express');
 const router = express.Router();
-const { createPost, getPostById, getAllPosts, deletePost, deletePostsByCommunity } = require('../controllers/postController');
+const { createPost, getPostById, getAllPosts, deletePost, updateVoteCount } = require('../controllers/postController');
 
 // Route to create a new post
 router.post('/', createPost);
@@ -14,5 +14,8 @@ router.get('/', getAllPosts);
 
 // Route to delete a post by id
 router.delete('/:id', deletePost);
+
+// Route to update vote count
+router.patch('/:id/vote', updateVoteCount);
 
 module.exports = router;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ImageCropper from "./CropUtils/ImageCropper";
 import "react-image-crop/dist/ReactCrop.css";
-import { Image } from "../components/svgComponents/GroupCreationSvgs";
-import { Close } from "../components/svgComponents/GroupCreationSvgs";
+import { Image } from "../components/utils/svgComponents/GroupCreationSvgs";
+import { Close } from "../components/utils/svgComponents/GroupCreationSvgs";
 
 function CropImage({ type, updateImage }) {
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);

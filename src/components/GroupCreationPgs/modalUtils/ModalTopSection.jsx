@@ -1,4 +1,4 @@
-import { Close } from "../../svgComponents/GroupCreationSvgs";
+import { Close } from "../../utils/svgComponents/GroupCreationSvgs";
 import { useContext } from "react";
 import { GroupCreationContext } from "../../../context/GroupCreationContext";
 

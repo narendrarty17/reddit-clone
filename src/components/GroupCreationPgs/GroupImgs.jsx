@@ -3,7 +3,7 @@ import GroupDetail from "./modalUtils/GroupDetail";
 import { useContext, useEffect, useState } from "react";
 import { GroupCreationContext } from "../../context/GroupCreationContext";
 import ModalButtons from "./modalUtils/ModalButtons";
-import { Delete } from "../svgComponents/GroupCreationSvgs";
+import { Delete } from "../utils/svgComponents/GroupCreationSvgs";
 import CropImage from "../CropImage";
 import { base64ToBlob, compressImage } from "../../services/imageService";
 

@@ -3,7 +3,7 @@ import {
   Restricted,
   Private,
   Mature,
-} from "../svgComponents/GroupCreationSvgs";
+} from "../utils/svgComponents/GroupCreationSvgs";
 import ModalTopSection from "./modalUtils/ModalTopSection";
 import ModalButtons from "./modalUtils/ModalButtons";
 import { useContext, useEffect, useState } from "react";

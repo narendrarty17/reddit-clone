@@ -42,7 +42,7 @@ export default function GroupHome() {
   if (error) return <div className="text-white">Error: {error}</div>;
 
   return (
-    <>
+    <div className="w-full">
       {createPost ? (
         <CreatePost
           name={groupDetails.name}
@@ -50,19 +50,19 @@ export default function GroupHome() {
           goToGroupHome={toggleCreatePost}
         />
       ) : (
-        <div className="flex flex-col w-auto gap-10">
+        <div className="flex flex-col w-full gap-10">
           <GroupHeader
             name={groupDetails.name}
             logo={groupDetails.iconImage}
             banner={groupDetails.bannerImage}
             handleCreatePost={toggleCreatePost}
           />
-          <div className="flex justify-between">
+          <div className="flex justify-between w-full gap-2">
             <GroupPosts name={groupDetails.name} />
             <GroupSidebar name={groupDetails.name} />
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

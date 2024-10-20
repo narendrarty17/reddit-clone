@@ -59,9 +59,9 @@ export default function GroupPosts({ name }) {
   }
 
   return (
-    <div>
-      <div className="mx-1 md:mx-3 h-[1px] mb-1 bg-gray-800"></div>
-      <div className="flex flex-col ">
+    <div className="w-full">
+      <div className="mx-1 md:mx-3 h-[1px] w-full mb-1 bg-gray-800"></div>
+      <div className="flex flex-col w-full">
         {postsData?.posts?.length > 0 ? (
           postsData.posts.map((post) => {
             return (
@@ -76,14 +76,25 @@ export default function GroupPosts({ name }) {
           <div>No posts available.</div> // Handle no posts case
         )}
       </div>
-      <div className="flex justify-between">
-        <button onClick={prevPg} disabled={page <= 1}>
-          Previous
-        </button>
-        <button onClick={nextPg} disabled={postsData?.totalPages <= page}>
-          Next
-        </button>
-      </div>
+      {postsData?.totalPages > 1 && (
+        <div className="flex justify-center gap-3 mt-8 items-center">
+          <button
+            className="border-[2px] border-lightGray px-2 py-1"
+            onClick={prevPg}
+            disabled={page <= 1}
+          >
+            Previous
+          </button>
+          <span className="text-xl font-semibold">{page}</span>
+          <button
+            className="border-[2px] border-lightGray px-2 py-1"
+            onClick={nextPg}
+            disabled={postsData?.totalPages <= page}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
